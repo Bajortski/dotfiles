@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   environment.systemPackages = [
     pkgs.fastfetch
+    pkgs.neovim
   ];
   ids.gids.nixbld = 350;
   programs.zsh.enable = true;
