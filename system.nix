@@ -10,4 +10,5 @@
     name = "toast";
     home = "/Users/toast";
   };
+  nix.settings.experimental-features = [ "flakes" "nix-command" ];
 }
