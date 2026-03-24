@@ -7,7 +7,7 @@ mouse_support = true
 
 # Format: ['Light color', 'Dark color']
 [theme]
-display_album_art = true
+display_album_art = false
 subtle = ['#D9DCCF', '#6B6B6BFF']
 highlight = ['#874BFD', '#ff0000']
 special = ['#43BF6D', '#909090']
