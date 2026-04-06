@@ -57,7 +57,7 @@ unfocused-split-opacity = .95
 maximize = true
 
 ## Title
-title = "Ghostty"
+title = "Terminal"
 
 focus-follows-mouse = true
 
@@ -73,7 +73,7 @@ auto-update = download
 
 auto-update-channel = tip
 
-font-family = Maple-Mono-NF
+font-family = Maple Mono NF
 
 font-size = 15
 

@@ -13,8 +13,9 @@ return {
     new_notes_location = "current_dir",
 
     -- preferred link style
-    preferred_link_style = "wiki",
-
+    link = {
+      style = "wiki",
+    },
     -- control how notes are opened
     open_notes_in = "current",
 
