@@ -7,16 +7,6 @@ local lazypath = vim.env.LAZY or vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 vim.opt.runtimepath:append("/full/path/to/folder/containing/colors")
 vim.cmd("colorscheme blackwhite")
 
--- via an autocmd
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "*.md",
-  callback = function()
-    vim.b.completion = false
-  end,
-})
-
--- or via ftplugin/some-filetype.lua
-vim.b.completion = false
 if vim.g.neovide then
   vim.o.guifont = "Maple Mono NF"
   vim.g.neovide_opacity = 0.8
