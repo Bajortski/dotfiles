@@ -1,4 +1,3 @@
--- colors/blackred.lua
 vim.cmd("hi clear")
 if vim.fn.exists("syntax_on") == 1 then
   vim.cmd("syntax reset")
@@ -37,25 +36,25 @@ hl("CursorIM", { fg = black, bg = red })
 
 -- Text
 hl("Comment", { fg = white_d40, italic = true })
-hl("String", { fg = white })
-hl("Number", { fg = white })
-hl("Boolean", { fg = white })
+hl("String", { fg = red })
+hl("Number", { fg = red })
+hl("Boolean", { fg = red })
 hl("Identifier", { fg = white })
-hl("Function", { fg = white, bold = true })
+hl("Function", { fg = red, bold = true })
 
 -- Syntax
 hl("Keyword", { fg = red, bold = true })
 hl("Statement", { fg = red })
 hl("Operator", { fg = red })
 
--- Fix punctuation / delimiters (braces, hyphens, commas, etc.)
+-- Punctuation
 hl("Delimiter", { fg = white }) -- covers many punctuation cases
 hl("Punctuation", { fg = white })
 hl("Special", { fg = white })
 hl("SpecialChar", { fg = white })
 hl("NonText", { fg = white_d50 })
 
--- Common Treesitter punctuation groups (safe to set even if not used)【1】
+-- Treesitter
 hl("TSDelimiter", { fg = red })
 hl("TSPunctDelimiter", { fg = red })
 hl("TSPunctBracket", { fg = red })

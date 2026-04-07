@@ -4,7 +4,6 @@ require("config.lazy")
 math.randomseed(os.time())
 local lazypath = vim.env.LAZY or vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-vim.opt.runtimepath:append("/full/path/to/folder/containing/colors")
 vim.cmd("colorscheme blackwhite")
 
 if vim.g.neovide then
