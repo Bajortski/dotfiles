@@ -47,7 +47,7 @@ return {
       min_chars = 2,
     },
 
-    -- **your workspace**
+    -- workspace
     workspaces = {
       {
         name = "Vaulternative",

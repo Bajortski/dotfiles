@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<head>
+  <title>Home</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <script>
+        function parseStatuses(markdown) {
+            return markdown
+                .split('\n')
+                .map(line => line.trim())
+                .filter(line => line.length > 0);
+        }
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/statuses.md')
+            .then(response => response.text())
+            .then(markdown => {
+                const statuses = parseStatuses(markdown);
+                shuffle(statuses);
+                const space = '&nbsp;'.repeat(4);
+                const joined = space + statuses.join('  -  ');
+                document.getElementById('markdown-content').innerHTML = joined;
+            });
+        fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/version.md')
+            .then(response => response.text())
+            .then(version => {
+                const versionCell = document.getElementById('version-cell');
+                if (versionCell) {
+                    versionCell.textContent = version.trim();
+                }
+            });
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2157705674677332"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="content">
+      <form action="https://kagi.com/search" method="get">
+        <table class="header">
+          <tr>
+            <th colspan="2" class="width-auto">
+              <h1 class="title">What will you search today?</h1>
+              <div class="marquee">
+                <p id="markdown-content"></p>
+              </div>
+            </th>
+          </tr>
+            <tr>
+              <td style="width: 100%; vertical-align: middle;">
+                <input type="text" name="q" placeholder="Search Kagi...">
+              </td>
+              <td style="white-space: nowrap; vertical-align: middle;">
+                <button type="submit">Search</button>
+              </td>
+              </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+</body>
+<footer>
+    <p style="text-align: center; font-size: smaller; margin-top: 1em;">
+        &copy; 2024-2026 Toast Bajortski. Rights.
+    </p>
+</footer>
