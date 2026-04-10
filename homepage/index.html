@@ -1,9 +1,50 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+<html>
 <head>
-  <title>Home</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
-  <script>
+    <title>newtab</title>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <form action="https://kagi.com/search" method="get">
+                <table class="header">
+                    <tr>
+                        <th colspan="2" class="width-auto">
+                            <h1 id="greeting" style="text-align: center;"></h1>
+                            <div class="marquee">
+                                <p id="markdown-content"></p>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td style="width: 100%; vertical-align: middle;">
+                            <input type="text" name="q" style="outline: none; border: none;" placeholder="Search...">
+                        </td>
+                        <td style="white-space: nowrap; vertical-align: middle;">
+                            <button type="submit" style="outline: none; border: none;">Go!</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p style="text-align: center; font-size: smaller; margin-top: 1em;">
+            &copy; 2024-2026 Toast Bajortski. Rights.
+        </p>
+    </footer>
+    <script>
+        // Greeting
+        const hour = new Date().getHours();
+        let greeting;
+        if (hour < 12) greeting = "Good morning!";
+        else if (hour < 18) greeting = "Good afternoon!";
+        else greeting = "Good evening!";
+        document.getElementById("greeting").textContent = greeting;
+
+        // Marquee
         function parseStatuses(markdown) {
             return markdown
                 .split('\n')
@@ -22,49 +63,15 @@
                 const statuses = parseStatuses(markdown);
                 shuffle(statuses);
                 const space = '&nbsp;'.repeat(4);
-                const joined = space + statuses.join('  -  ');
-                document.getElementById('markdown-content').innerHTML = joined;
+                document.getElementById('markdown-content').innerHTML = space + statuses.join('  -  ');
             });
+
         fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/version.md')
             .then(response => response.text())
             .then(version => {
                 const versionCell = document.getElementById('version-cell');
-                if (versionCell) {
-                    versionCell.textContent = version.trim();
-                }
+                if (versionCell) versionCell.textContent = version.trim();
             });
     </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2157705674677332"
-     crossorigin="anonymous"></script>
-</head>
-
-<body>
-  <div class="container">
-    <div class="content">
-      <form action="https://kagi.com/search" method="get">
-        <table class="header">
-          <tr>
-            <th colspan="2" class="width-auto">
-              <div class="marquee">
-                <p id="markdown-content"></p>
-              </div>
-            </th>
-          </tr>
-            <tr>
-              <td style="width: 100%; vertical-align: middle;">
-                <input type="text" name="q" placeholder="Search Kagi...">
-              </td>
-              <td style="white-space: nowrap; vertical-align: middle;">
-                <button type="submit">Search</button>
-              </td>
-              </tr>
-          </table>
-        </form>
-      </div>
-    </div>
 </body>
-<footer>
-    <p style="text-align: center; font-size: smaller; margin-top: 1em;">
-        &copy; 2024-2026 Toast Bajortski. Rights.
-    </p>
-</footer>
+</html>
