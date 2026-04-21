@@ -15,6 +15,21 @@ return {
             desc = "browse config files",
             action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
           },
+          {
+            icon = " ",
+            key = "j",
+            desc = "journal today",
+            action = function()
+              local year = os.date("%Y")
+              local today = os.date("%Y-%m-%d")
+              local path = vim.fn.expand("~/Documents/Vaulternative/Journal/" .. today .. ".md")
+              local dir = vim.fn.fnamemodify(path, ":h")
+              if vim.fn.isdirectory(dir) == 0 then
+                vim.fn.mkdir(dir, "p")
+              end
+              vim.cmd("edit " .. path)
+            end,
+          },
           { icon = " ", key = "s", desc = "restore last session", section = "session" },
           { icon = "󰒲 ", key = "l", desc = "lazy", action = ":Lazy" },
           { icon = "⏻", key = "q", desc = "quit", action = ":q!" },
