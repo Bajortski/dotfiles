@@ -6,6 +6,8 @@ gapless_playback = 'yes'
 desktop_notifications = false
 discord_rich_presence = false
 mouse_support = true
+# 0-100 for a preset initial volume, -1 to disable
+default_volume = -1
 
 # Format: ['Light color', 'Dark color']
 [theme]
@@ -52,6 +54,7 @@ down = ['j', 'down']
 top = ['gg']
 bottom = ['G']
 select = ['enter']
+toggle_selection = ['x']
 play_shuffled = ['alt+enter']
 go_half_page_up = ['ctrl+u']
 go_half_page_down = ['ctrl+d']
