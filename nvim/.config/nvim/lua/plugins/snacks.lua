@@ -1,7 +1,21 @@
+local function term_nav(dir)
+  ---@param self snacks.terminal
+  return function(self)
+    return self:is_floating() and "<c-" .. dir .. ">" or vim.schedule(function()
+      vim.cmd.wincmd(dir)
+    end)
+  end
+end
+
 return {
   "folke/snacks.nvim",
+  priority = 1000,
+  lazy = false,
+  ---@type snacks.Config
   opts = {
+    bigfile = { enabled = true },
     dashboard = {
+      enabled = true,
       preset = {
         header = require("util.random_quote").from_markdown("~/.config/nvim/quotes.md"),
         keys = {
@@ -40,5 +54,15 @@ return {
         { section = "keys", gap = 1 },
       },
     },
+    explorer = { enabled = true },
+    indent = { enabled = true },
+    input = { enabled = true },
+    picker = { enabled = true },
+    notifier = { enabled = true },
+    quickfile = { enabled = true },
+    scope = { enabled = true },
+    scroll = { enabled = true },
+    statuscolumn = { enabled = false },
+    words = { enabled = true },
   },
 }

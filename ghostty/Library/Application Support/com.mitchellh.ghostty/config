@@ -51,6 +51,8 @@ mouse-hide-while-typing = true
 # custom styling
 background-opacity = .9
 
+background-blur = macos-glass-clear
+
 unfocused-split-opacity = .95
 
 ## ghostty opens maximized

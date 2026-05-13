@@ -1,9 +1,16 @@
 require("config.lazy")
+require("config.keymaps")
 
 math.randomseed(os.time())
-local lazypath = vim.env.LAZY or vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 vim.cmd("colorscheme blackwhite")
+
+vim.opt.fillchars = "eob: "
+vim.opt.clipboard = "unnamedplus"
+
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 
 if vim.g.neovide then
   vim.o.guifont = "Maple Mono NF"
