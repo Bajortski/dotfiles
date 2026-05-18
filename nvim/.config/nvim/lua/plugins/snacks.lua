@@ -19,19 +19,19 @@ return {
       preset = {
         header = require("util.random_quote").from_markdown("~/.config/nvim/quotes.md"),
         keys = {
-          { icon = " ", key = "f", desc = "search", action = ":lua Snacks.dashboard.pick('files')" },
-          { icon = " ", key = "n", desc = "create new file", action = ":ene | startinsert" },
-          { icon = " ", key = "g", desc = "search text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-          { icon = " ", key = "r", desc = "browse recent files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+          { icon = "󰍉", key = "f", desc = "search", action = ":lua Snacks.dashboard.pick('files')" },
+          { icon = "", key = "n", desc = "create new file", action = ":ene | startinsert" },
+          { icon = "", key = "p", desc = "projects", action = ":lua Snacks.picker.projects()" },
+          { icon = "󱋢", key = "r", desc = "browse recent files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
           {
-            icon = " ",
+            icon = "",
             key = "c",
             desc = "browse config files",
             action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
           },
           {
-            icon = " ",
-            key = "j",
+            icon = "󱎮",
+            key = "J",
             desc = "journal today",
             action = function()
               local year = os.date("%Y")
@@ -44,13 +44,13 @@ return {
               vim.cmd("edit " .. path)
             end,
           },
-          { icon = " ", key = "s", desc = "restore last session", section = "session" },
+          { icon = "󰋚", key = "s", desc = "restore last session", section = "session" },
           { icon = "󰒲 ", key = "l", desc = "lazy", action = ":Lazy" },
-          { icon = "⏻", key = "q", desc = "quit", action = ":q!" },
+          { icon = "󰠚", key = "q", desc = "quit", action = ":q!" },
         },
       },
       sections = {
-        { section = "header" },
+        { section = "header", align = "center" },
         { section = "keys", gap = 1 },
       },
     },

@@ -6,6 +6,7 @@ local function pick(source, opts)
     if o.root ~= false then
       o.cwd = vim.fs.root(0, { ".git", ".hg", ".svn" }) or vim.fn.getcwd()
     end
+    o.root = nil
     Snacks.picker.pick(source, o)
   end
 end
@@ -14,19 +15,6 @@ end
 local function config_files()
   return function()
     Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
-  end
-end
-
--- Helper: telescope grep, rooted unless root=false
-local function tgrep(builtin, opts)
-  opts = opts or {}
-  return function()
-    local o = vim.deepcopy(opts)
-    if o.root ~= false then
-      o.cwd = vim.fs.root(0, { ".git", ".hg", ".svn" }) or vim.fn.getcwd()
-    end
-    o.root = nil
-    require("telescope.builtin")[builtin](o)
   end
 end
 
@@ -40,10 +28,7 @@ return {
         win = {
           input = {
             keys = {
-              ["<a-c>"] = {
-                "toggle_cwd",
-                mode = { "n", "i" },
-              },
+              ["<a-c>"] = { "toggle_cwd", mode = { "n", "i" } },
             },
           },
         },
@@ -64,58 +49,67 @@ return {
     },
     -- stylua: ignore
     keys = {
-      { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
-      { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
-      { "<leader><space>", tgrep("find_files"), desc = "Find Files (Root Dir)" },
-      { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
+      { "<leader>,",       function() Snacks.picker.buffers() end,                                    desc = "Buffers" },
+      { "<leader>:",       function() Snacks.picker.command_history() end,                             desc = "Command History" },
+      { "<leader><space>", pick("files", { root = false }),                                            desc = "Find Files (cwd)" },
+      { "<leader>n",       function() Snacks.picker.notifications() end,                              desc = "Notification History" },
       -- find
-      { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
-      { "<leader>fB", function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = "Buffers (all)" },
-      { "<leader>fc", config_files(), desc = "Find Config File" },
-      { "<leader>ff", pick("files"), desc = "Find Files (Root Dir)" },
-      { "<leader>fF", pick("files", { root = false }), desc = "Find Files (cwd)" },
-      { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Files (git-files)" },
-      { "<leader>fr", pick("recent"), desc = "Recent" },
-      { "<leader>fR", function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = "Recent (cwd)" },
-      { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
+      { "<leader>fb",      function() Snacks.picker.buffers() end,                                    desc = "Buffers" },
+      { "<leader>fB",      function() Snacks.picker.buffers({ hidden = true, nofile = true }) end,    desc = "Buffers (all)" },
+      { "<leader>fc",      config_files(),                                                             desc = "Find Config File" },
+      { "<leader>ff",      pick("files"),                                                              desc = "Find Files (Root Dir)" },
+      { "<leader>fF",      pick("files", { root = false }),                                            desc = "Find Files (cwd)" },
+      { "<leader>fg",      function() Snacks.picker.git_files() end,                                  desc = "Find Files (git-files)" },
+      { "<leader>fr",      pick("recent"),                                                             desc = "Recent" },
+      { "<leader>fR",      function() Snacks.picker.recent({ filter = { cwd = true } }) end,          desc = "Recent (cwd)" },
+      { "<leader>fp",      function() Snacks.picker.projects() end,                                   desc = "Projects" },
       -- git
-      { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff (hunks)" },
-      { "<leader>gD", function() Snacks.picker.git_diff({ base = "origin", group = true }) end, desc = "Git Diff (origin)" },
-      { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
-      { "<leader>gS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
-      { "<leader>gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
-      { "<leader>gI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" },
-      { "<leader>gp", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
-      { "<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
-      -- Grep
-      { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
-      { "<leader>sB", function() require("telescope.builtin").live_grep({ grep_open_files = true }) end, desc = "Grep Open Buffers" },
-      { "<leader>sg", tgrep("live_grep"), desc = "Grep (Root Dir)" },
-      { "<leader>sG", tgrep("live_grep", { root = false }), desc = "Grep (cwd)" },
-      { "<leader>sp", function() Snacks.picker.lazy() end, desc = "Search for Plugin Spec" },
-      { "<leader>sw", tgrep("grep_string", { word_match = "-w" }), desc = "Visual selection or word (Root Dir)", mode = { "n", "x" } },
-      { "<leader>sW", tgrep("grep_string", { root = false, word_match = "-w" }), desc = "Visual selection or word (cwd)", mode = { "n", "x" } },
+      { "<leader>gd",      function() Snacks.picker.git_diff() end,                                   desc = "Git Diff (hunks)" },
+      { "<leader>gD",      function() Snacks.picker.git_diff({ base = "origin", group = true }) end,  desc = "Git Diff (origin)" },
+      { "<leader>gs",      function() Snacks.picker.git_status() end,                                 desc = "Git Status" },
+      { "<leader>gS",      function() Snacks.picker.git_stash() end,                                  desc = "Git Stash" },
+      { "<leader>gi",      function() Snacks.picker.gh_issue() end,                                   desc = "GitHub Issues (open)" },
+      { "<leader>gI",      function() Snacks.picker.gh_issue({ state = "all" }) end,                  desc = "GitHub Issues (all)" },
+      { "<leader>gp",      function() Snacks.picker.gh_pr() end,                                      desc = "GitHub Pull Requests (open)" },
+      { "<leader>gP",      function() Snacks.picker.gh_pr({ state = "all" }) end,                     desc = "GitHub Pull Requests (all)" },
+      -- grep
+      { "<leader>sb",      function() Snacks.picker.lines() end,                                      desc = "Buffer Lines" },
+      { "<leader>sB",      function() Snacks.picker.grep_buffers() end,                               desc = "Grep Open Buffers" },
+      { "<leader>sg",      pick("grep"),                                                               desc = "Grep (Root Dir)" },
+      { "<leader>sG",      pick("grep", { root = false }),                                             desc = "Grep (cwd)" },
+      { "<leader>sp",      function() Snacks.picker.lazy() end,                                       desc = "Search for Plugin Spec" },
+      { "<leader>sw",      pick("grep_word"),                          mode = { "n", "x" },            desc = "Visual selection or word (Root Dir)" },
+      { "<leader>sW",      pick("grep_word", { root = false }),        mode = { "n", "x" },            desc = "Visual selection or word (cwd)" },
       -- search
-      { '<leader>s"', function() Snacks.picker.registers() end, desc = "Registers" },
-      { '<leader>s/', function() Snacks.picker.search_history() end, desc = "Search History" },
-      { "<leader>sa", function() Snacks.picker.autocmds() end, desc = "Autocmds" },
-      { "<leader>sc", function() Snacks.picker.command_history() end, desc = "Command History" },
-      { "<leader>sC", function() Snacks.picker.commands() end, desc = "Commands" },
-      { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
-      { "<leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
-      { "<leader>sh", function() Snacks.picker.help() end, desc = "Help Pages" },
-      { "<leader>sH", function() Snacks.picker.highlights() end, desc = "Highlights" },
-      { "<leader>si", function() Snacks.picker.icons() end, desc = "Icons" },
-      { "<leader>sj", function() Snacks.picker.jumps() end, desc = "Jumps" },
-      { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
-      { "<leader>sl", function() Snacks.picker.loclist() end, desc = "Location List" },
-      { "<leader>sM", function() Snacks.picker.man() end, desc = "Man Pages" },
-      { "<leader>sm", function() Snacks.picker.marks() end, desc = "Marks" },
-      { "<leader>sR", function() Snacks.picker.resume() end, desc = "Resume" },
-      { "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
-      { "<leader>su", function() Snacks.picker.undo() end, desc = "Undotree" },
+      { '<leader>s"',      function() Snacks.picker.registers() end,                                  desc = "Registers" },
+      { '<leader>s/',      function() Snacks.picker.search_history() end,                             desc = "Search History" },
+      { "<leader>sa",      function() Snacks.picker.autocmds() end,                                   desc = "Autocmds" },
+      { "<leader>sc",      function() Snacks.picker.command_history() end,                            desc = "Command History" },
+      { "<leader>sC",      function() Snacks.picker.commands() end,                                   desc = "Commands" },
+      { "<leader>sd",      function() Snacks.picker.diagnostics() end,                                desc = "Diagnostics" },
+      { "<leader>sD",      function() Snacks.picker.diagnostics_buffer() end,                         desc = "Buffer Diagnostics" },
+      { "<leader>sh",      function() Snacks.picker.help() end,                                       desc = "Help Pages" },
+      { "<leader>sH",      function() Snacks.picker.highlights() end,                                 desc = "Highlights" },
+      { "<leader>si",      function() Snacks.picker.icons() end,                                      desc = "Icons" },
+      { "<leader>sj",      function() Snacks.picker.jumps() end,                                      desc = "Jumps" },
+      { "<leader>sk",      function() Snacks.picker.keymaps() end,                                    desc = "Keymaps" },
+      { "<leader>sl",      function() Snacks.picker.loclist() end,                                    desc = "Location List" },
+      { "<leader>sM",      function() Snacks.picker.man() end,                                        desc = "Man Pages" },
+      { "<leader>sm",      function() Snacks.picker.marks() end,                                      desc = "Marks" },
+      { "<leader>sR",      function() Snacks.picker.resume() end,                                     desc = "Resume" },
+      { "<leader>sq",      function() Snacks.picker.qflist() end,                                     desc = "Quickfix List" },
+      { "<leader>su",      function() Snacks.picker.undo() end,                                       desc = "Undotree" },
+      -- lsp
+      { "<leader>ss",      function() Snacks.picker.lsp_symbols() end,                                desc = "LSP Symbols" },
+      { "<leader>sS",      function() Snacks.picker.lsp_workspace_symbols() end,                      desc = "LSP Workspace Symbols" },
+      { "gd",              function() Snacks.picker.lsp_definitions() end,                            desc = "Goto Definition" },
+      { "gr",              function() Snacks.picker.lsp_references() end,                             desc = "References",           nowait = true },
+      { "gI",              function() Snacks.picker.lsp_implementations() end,                        desc = "Goto Implementation" },
+      { "gy",              function() Snacks.picker.lsp_type_definitions() end,                       desc = "Goto T[y]pe Definition" },
+      { "gai",             function() Snacks.picker.lsp_incoming_calls() end,                         desc = "Calls Incoming" },
+      { "gao",             function() Snacks.picker.lsp_outgoing_calls() end,                         desc = "Calls Outgoing" },
       -- ui
-      { "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
+      { "<leader>uC",      function() Snacks.picker.colorschemes() end,                               desc = "Colorschemes" },
     },
   },
   {
@@ -133,10 +127,7 @@ return {
             win = {
               input = {
                 keys = {
-                  ["<a-t>"] = {
-                    "trouble_open",
-                    mode = { "n", "i" },
-                  },
+                  ["<a-t>"] = { "trouble_open", mode = { "n", "i" } },
                 },
               },
             },
@@ -144,26 +135,6 @@ return {
         })
       end
     end,
-  },
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        ["*"] = {
-          -- stylua: ignore
-          keys = {
-            { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition", has = "definition" },
-            { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
-            { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
-            { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
-            { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols", has = "documentSymbol" },
-            { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols", has = "workspace/symbol" },
-            { "gai", function() Snacks.picker.lsp_incoming_calls() end, desc = "C[a]lls Incoming", has = "callHierarchy/incomingCalls" },
-            { "gao", function() Snacks.picker.lsp_outgoing_calls() end, desc = "C[a]lls Outgoing", has = "callHierarchy/outgoingCalls" },
-          },
-        },
-      },
-    },
   },
   {
     "folke/todo-comments.nvim",
@@ -174,61 +145,7 @@ return {
       { "<leader>sT", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
     },
   },
-  {
-    "folke/snacks.nvim",
-    opts = function(_, opts)
-      table.insert(opts.dashboard.preset.keys, 3, {
-        icon = " ",
-        key = "p",
-        desc = "Projects",
-        action = ":lua Snacks.picker.projects()",
-      })
-    end,
-  },
-  {
-    "goolord/alpha-nvim",
-    optional = true,
-    opts = function(_, dashboard)
-      local button = dashboard.button("p", " " .. " Projects", [[<cmd> lua Snacks.picker.projects() <cr>]])
-      button.opts.hl = "AlphaButtons"
-      button.opts.hl_shortcut = "AlphaShortcut"
-      table.insert(dashboard.section.buttons.val, 4, button)
-    end,
-  },
-  {
-    "nvim-mini/mini.starter",
-    optional = true,
-    opts = function(_, opts)
-      local items = {
-        {
-          name = "Projects",
-          action = [[lua Snacks.picker.projects()]],
-          section = string.rep(" ", 22) .. "Telescope",
-        },
-      }
-      vim.list_extend(opts.items, items)
-    end,
-  },
-  {
-    "nvimdev/dashboard-nvim",
-    optional = true,
-    opts = function(_, opts)
-      if not vim.tbl_get(opts, "config", "center") then
-        return
-      end
-      local projects = {
-        action = "lua Snacks.picker.projects()",
-        desc = " Projects",
-        icon = " ",
-        key = "p",
-      }
 
-      projects.desc = projects.desc .. string.rep(" ", 43 - #projects.desc)
-      projects.key_format = "  %s"
-
-      table.insert(opts.config.center, 3, projects)
-    end,
-  },
   {
     "folke/flash.nvim",
     optional = true,
@@ -241,7 +158,7 @@ return {
               input = {
                 keys = {
                   ["<a-s>"] = { "flash", mode = { "n", "i" } },
-                  ["s"] = { "flash" },
+                  ["s"]     = { "flash" },
                 },
               },
             },

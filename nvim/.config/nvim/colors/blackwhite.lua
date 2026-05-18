@@ -44,7 +44,7 @@ hl("Function", { fg = red, bold = true })
 
 -- Syntax
 hl("Keyword", { fg = red, bold = true })
-hl("Statement", { fg = red })
+hl("Statement", { fg = white })
 hl("Operator", { fg = red })
 
 -- Punctuation

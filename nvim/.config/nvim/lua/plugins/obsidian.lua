@@ -54,5 +54,9 @@ return {
         path = "~/Documents/Vaulternative",
       },
     },
+		
+		picker = {
+			name = "snacks-picker"
+		}
   },
 }
