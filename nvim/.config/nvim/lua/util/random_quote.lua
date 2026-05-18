@@ -24,7 +24,7 @@ function M.from_markdown(path)
 
   local file = io.open(vim.fn.expand(path), "r")
   if not file then
-    return { "quotes.md not found." }
+    return "quotes.md not found."
   end
 
   local content = file:read("*a")
@@ -32,12 +32,11 @@ function M.from_markdown(path)
 
   local quotes = vim.split(content, "%s*|%s*", { trimempty = true })
   if #quotes == 0 then
-    return { "No quotes available." }
+    return "No quotes available."
   end
 
   local quote = vim.trim(quotes[math.random(#quotes)])
-  local width = math.floor(vim.o.columns * 0.5)
-  return wrap(quote, width)
+  return table.concat(wrap(quote, 60), "\n")
 end
 
 return M
