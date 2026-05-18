@@ -36,7 +36,7 @@ function M.from_markdown(path)
   end
 
   local quote = vim.trim(quotes[math.random(#quotes)])
-  return table.concat(wrap(quote, 60), "\n")
+  return table.concat(wrap(quote, 80), "\n")
 end
 
 return M
