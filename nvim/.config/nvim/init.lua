@@ -7,6 +7,8 @@ vim.cmd("colorscheme blackwhite")
 
 vim.opt.fillchars = "eob: "
 vim.opt.clipboard = "unnamedplus"
+vim.opt.relativenumber = true
+vim.opt.number = true
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2

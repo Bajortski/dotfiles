@@ -48,7 +48,7 @@ hl("Statement", { fg = white })
 hl("Operator", { fg = red })
 
 -- Punctuation
-hl("Delimiter", { fg = white }) -- covers many punctuation cases
+hl("Delimiter", { fg = white })
 hl("Punctuation", { fg = white })
 hl("Special", { fg = white })
 hl("SpecialChar", { fg = white })
@@ -76,3 +76,5 @@ hl("DiagnosticError", { fg = red })
 hl("DiagnosticWarn", { fg = red_l20 })
 hl("DiagnosticInfo", { fg = white })
 hl("DiagnosticHint", { fg = white_d30 })
+
+vim.api.nvim_set_hl(0, 'MinuetVirtualText', { fg = '#808080', italic = true })

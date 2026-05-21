@@ -45,8 +45,6 @@ return {
       map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
       map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
       -- stylua: ignore end
-
-      -- Git signs toggle via Snacks
       Snacks.toggle({
         name = "Git Signs",
         get = function() return require("gitsigns.config").config.signcolumn end,

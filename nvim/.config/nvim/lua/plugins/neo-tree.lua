@@ -32,8 +32,6 @@ return {
       vim.cmd([[Neotree close]])
     end,
     init = function()
-      -- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
-      -- because `cwd` is not set up properly.
       vim.api.nvim_create_autocmd("BufEnter", {
         group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
         desc = "Start Neo-tree with directory",
@@ -82,7 +80,7 @@ return {
       },
       default_component_configs = {
         indent = {
-          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+          with_expanders = true,
           expander_collapsed = "",
           expander_expanded = "",
           expander_highlight = "NeoTreeExpander",
