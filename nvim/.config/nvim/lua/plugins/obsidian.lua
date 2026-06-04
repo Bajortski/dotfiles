@@ -15,6 +15,7 @@ return {
     -- preferred link style
     link = {
       style = "wiki",
+			auto_update = true,
     },
     -- control how notes are opened
     open_notes_in = "current",
@@ -24,6 +25,10 @@ return {
       sort_by = "modified",
       sort_reversed = true,
     },
+
+		completion = {
+			min_chars = 2,
+		},
 
     -- attachments (images) defaults
     attachments = {
@@ -38,13 +43,6 @@ return {
       folder = nil,
       date_format = nil,
       time_format = nil,
-    },
-
-    -- completion defaults
-    completion = {
-      nvim_cmp = false,
-      blink = true,
-      min_chars = 2,
     },
 
     -- workspace

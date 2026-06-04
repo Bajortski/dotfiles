@@ -6,7 +6,7 @@ return {
     'milanglacier/minuet-ai.nvim',
   },
   build = function()
-    require('blink.cmp').build():wait(60000)
+    require('blink.cmp').build():pwait(60000)
   end,
 
   ---@module 'blink.cmp'
