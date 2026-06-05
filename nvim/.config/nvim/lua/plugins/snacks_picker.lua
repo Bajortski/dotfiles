@@ -1,9 +1,18 @@
+local VAULT = vim.fn.expand("~/Documents/Vaulternative")
+
+local function in_vault()
+  local bufpath = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
+  return vim.startswith(bufpath, vim.fs.normalize(VAULT) .. "/")
+end
+
 -- Helper: wraps Snacks.picker.pick into a callable, optionally rooted
 local function pick(source, opts)
   opts = opts or {}
   return function()
     local o = vim.deepcopy(opts)
-    if o.root ~= false then
+    if in_vault() then
+      o.cwd = VAULT
+    elseif o.root ~= false then
       o.cwd = vim.fs.root(0, { ".git", ".hg", ".svn" }) or vim.fn.getcwd()
     end
     o.root = nil
@@ -57,8 +66,8 @@ return {
       { "<leader>fb",      function() Snacks.picker.buffers() end,                                    desc = "Buffers" },
       { "<leader>fB",      function() Snacks.picker.buffers({ hidden = true, nofile = true }) end,    desc = "Buffers (all)" },
       { "<leader>fc",      config_files(),                                                             desc = "Find Config File" },
-      { "<leader>ff",      pick("files"),                                                              desc = "Find Files (Root Dir)" },
-      { "<leader>fF",      pick("files", { root = false }),                                            desc = "Find Files (cwd)" },
+      { "<leader>ff",      pick("files"),                                                              desc = "Find Files (Root Dir / Vault)" },
+      { "<leader>fF",      pick("files", { root = false }),                                            desc = "Find Files (cwd / Vault)" },
       { "<leader>fg",      function() Snacks.picker.git_files() end,                                  desc = "Find Files (git-files)" },
       { "<leader>fr",      pick("recent"),                                                             desc = "Recent" },
       { "<leader>fR",      function() Snacks.picker.recent({ filter = { cwd = true } }) end,          desc = "Recent (cwd)" },
@@ -75,8 +84,8 @@ return {
       -- grep
       { "<leader>sb",      function() Snacks.picker.lines() end,                                      desc = "Buffer Lines" },
       { "<leader>sB",      function() Snacks.picker.grep_buffers() end,                               desc = "Grep Open Buffers" },
-      { "<leader>sg",      pick("grep"),                                                               desc = "Grep (Root Dir)" },
-      { "<leader>sG",      pick("grep", { root = false }),                                             desc = "Grep (cwd)" },
+      { "<leader>sg",      pick("grep"),                                                               desc = "Grep (Root Dir / Vault)" },
+      { "<leader>sG",      pick("grep", { root = false }),                                             desc = "Grep (cwd / Vault)" },
       { "<leader>sp",      function() Snacks.picker.lazy() end,                                       desc = "Search for Plugin Spec" },
       { "<leader>sw",      pick("grep_word"),                          mode = { "n", "x" },            desc = "Visual selection or word (Root Dir)" },
       { "<leader>sW",      pick("grep_word", { root = false }),        mode = { "n", "x" },            desc = "Visual selection or word (cwd)" },
