@@ -1,3 +1,0 @@
-[submodule "nvim/.config/nvim"]
-	path = nvim/.config/nvim
-	url = /Users/toast/dotfiles/nvim/.config/nvim
