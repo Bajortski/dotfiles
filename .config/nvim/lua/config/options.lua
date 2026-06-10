@@ -1,9 +1,3 @@
--- This file is automatically loaded by plugins.core
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
-vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
-
 local opt = vim.opt
 
 opt.autowrite = true -- Enable auto write
@@ -25,7 +19,6 @@ opt.fillchars = {
 opt.foldlevel = 99
 opt.foldmethod = "indent"
 opt.foldtext = ""
-opt.formatexpr = "v:lua.LazyVim.format.formatexpr()"
 opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
@@ -56,7 +49,7 @@ opt.spelllang = { "en" }
 opt.splitbelow = true -- Put new windows below current
 opt.splitkeep = "screen"
 opt.splitright = true -- Put new windows right of current
-opt.statuscolumn = [[%!v:lua.LazyVim.statuscolumn()]]
+opt.softtabstop = 2
 opt.tabstop = 2 -- Number of spaces tabs count for
 opt.termguicolors = true -- True color support
 opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key

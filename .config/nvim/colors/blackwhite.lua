@@ -3,7 +3,7 @@ if vim.fn.exists("syntax_on") == 1 then
   vim.cmd("syntax reset")
 end
 vim.o.background = "dark"
-vim.g.colors_name = "blackred"
+vim.g.colors_name = "blackwhite"
 vim.o.termguicolors = true
 
 local function hl(group, opts)
@@ -55,10 +55,9 @@ hl("SpecialChar", { fg = white })
 hl("NonText", { fg = white_d50 })
 
 -- Treesitter
-hl("TSDelimiter", { fg = red })
-hl("TSPunctDelimiter", { fg = red })
-hl("TSPunctBracket", { fg = red })
-hl("TSPunctSpecial", { fg = red })
+hl("@punctuation.delimiter", { fg = red })
+hl("@punctuation.bracket", { fg = red })
+hl("@punctuation.special", { fg = red })
 
 -- UI elements
 hl("LineNr", { fg = white_d50, bg = black })
