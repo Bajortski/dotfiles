@@ -20,6 +20,8 @@ local function wrap(text, width)
 end
 
 function M.from_markdown(path)
+  math.randomseed(os.time())
+
   local file = io.open(vim.fn.expand(path), "r")
   if not file then
     return "quotes.md not found."
