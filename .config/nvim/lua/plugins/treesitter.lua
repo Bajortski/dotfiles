@@ -14,6 +14,7 @@ return {
       ensure_installed = {
         "bash",
         "c",
+        "css",
         "diff",
         "html",
         "javascript",
@@ -40,6 +41,16 @@ return {
     config = function(_, opts)
       local ts = require("nvim-treesitter")
       ts.setup(opts)
+
+      -- main branch: setup() does NOT install parsers from ensure_installed.
+      -- Install any that are missing (async, idempotent).
+      local installed = ts.get_installed()
+      local missing = vim.tbl_filter(function(lang)
+        return not vim.tbl_contains(installed, lang)
+      end, opts.ensure_installed or {})
+      if #missing > 0 then
+        ts.install(missing)
+      end
 
       -- Enable highlight, indent, and folds per filetype
       vim.api.nvim_create_autocmd("FileType", {

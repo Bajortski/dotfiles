@@ -45,7 +45,7 @@ return {
             end,
           },
           { icon = "󰋚", key = "s", desc = "restore last session", section = "session" },
-          { icon = "󰒲 ", key = "l", desc = "lazy", action = ":Lazy" },
+          { icon = "󰒲 ", key = "L", desc = "lazy", action = ":Lazy" },
           { icon = "󰠚", key = "q", desc = "quit", action = ":q!" },
         },
       },

@@ -18,6 +18,7 @@ local white = "#FFFFFF"
 local white_d40 = "#9A9A9A"
 local white_d50 = "#808080"
 local white_d30 = "#B2B2B2"
+local white_d15 = "#E0E0E0"
 local red = "#FF0000"
 local red_d50 = "#800000"
 local red_l10 = "#FF3333"
@@ -45,7 +46,7 @@ hl("Function", { fg = red, bold = true })
 -- Syntax
 hl("Keyword", { fg = red, bold = true })
 hl("Statement", { fg = white })
-hl("Operator", { fg = red })
+hl("Operator", { fg = white_d15 })
 
 -- Punctuation
 hl("Delimiter", { fg = white })
@@ -54,10 +55,52 @@ hl("Special", { fg = white })
 hl("SpecialChar", { fg = white })
 hl("NonText", { fg = white_d50 })
 
--- Treesitter
-hl("@punctuation.delimiter", { fg = red })
-hl("@punctuation.bracket", { fg = red })
-hl("@punctuation.special", { fg = red })
+-- Treesitter: punctuation is dim white, not red — reduces noise
+hl("@punctuation.delimiter", { fg = white_d15 })
+hl("@punctuation.bracket",   { fg = white_d15 })
+hl("@punctuation.special",   { fg = white_d15 })
+
+-- Treesitter: syntax categories
+hl("@variable",              { fg = white })
+hl("@variable.parameter",    { fg = white_d15 })
+hl("@variable.builtin",      { fg = red_l10 })
+hl("@constant",              { fg = red })
+hl("@constant.builtin",      { fg = red, bold = true })
+hl("@string",                { fg = red })
+hl("@number",                { fg = red })
+hl("@boolean",               { fg = red, bold = true })
+hl("@type",                  { fg = white, bold = true })
+hl("@type.builtin",          { fg = white_d15, bold = true })
+hl("@keyword",               { fg = red, bold = true })
+hl("@keyword.return",        { fg = red, bold = true })
+hl("@keyword.operator",      { fg = red })
+hl("@function",              { fg = red, bold = true })
+hl("@function.builtin",      { fg = red_l10, bold = true })
+hl("@function.call",         { fg = white })
+hl("@method",                { fg = red, bold = true })
+hl("@method.call",           { fg = white })
+hl("@property",              { fg = white_d15 })
+hl("@field",                 { fg = white_d15 })
+hl("@namespace",             { fg = white_d15 })
+hl("@operator",              { fg = white_d15 })
+
+-- Markdown frontmatter — uniformly grey (see after/queries/markdown/highlights.scm)
+hl("@markdownFrontmatter", { fg = white_d40 })
+
+-- HTML treesitter groups (explicit, don't rely on fallback chain)
+hl("@tag",                   { fg = white })
+hl("@tag.builtin",           { fg = white })
+hl("@tag.attribute",         { fg = white_d15 })
+hl("@tag.delimiter",         { fg = white_d15 })
+
+-- Legacy HTML syntax groups (fallback when treesitter isn't active)
+-- htmlTag/htmlEndTag would otherwise inherit Function → red
+hl("htmlTag",                { fg = white_d15 })
+hl("htmlEndTag",             { fg = white_d15 })
+hl("htmlTagName",            { fg = white })
+hl("htmlSpecialTagName",     { fg = white })
+hl("htmlArg",                { fg = white_d15 })
+hl("htmlString",             { fg = red })
 
 -- UI elements
 hl("LineNr", { fg = white_d50, bg = black })

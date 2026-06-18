@@ -3,7 +3,6 @@ return {
   dependencies = { 'nvim-lua/plenary.nvim' },
   config = function()
     require('minuet').setup {
-			notify = 'warn',
       request_timeout = 30,
       provider = 'openai_compatible',
       virtualtext = {

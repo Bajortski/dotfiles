@@ -14,7 +14,18 @@ return {
   opts = {
     keymap = {
       preset = 'default',
-      ["<Tab>"] = { "accept", "fallback" },
+      ["<Tab>"] = {
+        function(cmp)
+          local ok, vt = pcall(require, 'minuet.virtualtext')
+          if not ok then return false end
+          if vt.action.is_visible() then
+            vt.action.accept()
+            return true
+          end
+          return cmp.accept()
+        end,
+        "fallback",
+      },
       ["<CR>"] = { "fallback" },
     },
 
@@ -26,6 +37,6 @@ return {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
 
-    fuzzy = { implementation = "rust" },
+    fuzzy = { implementation = "prefer_rust" },
   },
 }

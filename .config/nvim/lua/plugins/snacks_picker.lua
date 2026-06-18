@@ -67,7 +67,7 @@ return {
       { "<leader>fB",      function() Snacks.picker.buffers({ hidden = true, nofile = true }) end,    desc = "Buffers (all)" },
       { "<leader>fc",      config_files(),                                                             desc = "Find Config File" },
       { "<leader>ff",      pick("files"),                                                              desc = "Find Files (Root Dir / Vault)" },
-      { "<leader>fF",      pick("files", { root = false }),                                            desc = "Find Files (cwd / Vault)" },
+      { "<leader>fF",      function() Snacks.picker.grep({ cwd = vim.fn.expand("~") }) end,          desc = "Grep (Global)" },
       { "<leader>fg",      function() Snacks.picker.git_files() end,                                  desc = "Find Files (git-files)" },
       { "<leader>fr",      pick("recent"),                                                             desc = "Recent" },
       { "<leader>fR",      function() Snacks.picker.recent({ filter = { cwd = true } }) end,          desc = "Recent (cwd)" },

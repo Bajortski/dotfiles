@@ -64,10 +64,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       map("n", "<leader>cR", function() Snacks.rename.rename_file() end, "Rename File")
     end
 
-    -- Format on demand (swap for conform.nvim later if needed)
-    map({ "n", "x" }, "<leader>cf", function()
-      vim.lsp.buf.format({ bufnr = buf, timeout_ms = 3000 })
-    end, "Format")
+    -- Format via conform.nvim (see plugins/conform.lua)
   end,
 })
 

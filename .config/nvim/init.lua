@@ -1,13 +1,11 @@
+-- load config files: lazy, options, keymaps, neovide
 require("config.lazy")
 require("config.options")
 require("config.keymaps")
+require("config.neovide")
 
+-- set randomseed for launchpad quote
 math.randomseed(os.time())
 
+--set theme
 vim.cmd("colorscheme blackwhite")
-
-if vim.g.neovide then
-  vim.o.guifont = "Maple Mono NF:h14"
-  vim.g.neovide_opacity = 0.8
-  vim.g.neovide_normal_opacity = 0.9
-end
