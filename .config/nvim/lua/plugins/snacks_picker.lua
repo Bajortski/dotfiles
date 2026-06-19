@@ -59,6 +59,7 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader>,",       function() Snacks.picker.buffers() end,                                    desc = "Buffers" },
+      { "<leader>/",       pick("grep"),                                                               desc = "Grep (Root Dir)" },
       { "<leader>:",       function() Snacks.picker.command_history() end,                             desc = "Command History" },
       { "<leader><space>", pick("files", { root = false }),                                            desc = "Find Files (cwd)" },
       { "<leader>n",       function() Snacks.picker.notifications() end,                              desc = "Notification History" },

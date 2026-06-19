@@ -12,6 +12,14 @@ return {
         mode = { "n", "x" },
         desc = "Format",
       },
+      {
+        "<leader>cF",
+        function()
+          require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
+        end,
+        mode = { "n", "x" },
+        desc = "Format Injected Langs",
+      },
     },
     opts = {
       formatters_by_ft = {

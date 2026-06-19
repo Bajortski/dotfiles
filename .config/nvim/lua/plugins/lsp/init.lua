@@ -43,6 +43,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     if has_capability(buf, "codeAction") then
       map({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, "Code Action")
+      map("n", "<leader>cA", function()
+        vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } })
+      end, "Source Action")
+      map("n", "<leader>co", function()
+        vim.lsp.buf.code_action({
+          context = { only = { "source.organizeImports" }, diagnostics = {} },
+          apply = true,
+        })
+      end, "Organize Imports")
     end
 
     if has_capability(buf, "codeLens") then

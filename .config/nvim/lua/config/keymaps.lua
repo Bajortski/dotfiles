@@ -29,6 +29,7 @@ map("n", "<leader>bb", "<cmd>e #<cr>",        { desc = "Switch to Other Buffer" 
 map("n", "<leader>`",  "<cmd>e #<cr>",        { desc = "Switch to Other Buffer" })
 map("n", "<leader>bd", function() Snacks.bufdelete() end,       { desc = "Delete Buffer" })
 map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
+map("n", "<leader>bi", function() Snacks.bufdelete.invisible() end, { desc = "Delete Invisible Buffers" })
 map("n", "<leader>bD", "<cmd>:bd<cr>",        { desc = "Delete Buffer and Window" })
 
 -- Clear search on escape
@@ -127,6 +128,7 @@ Snacks.toggle.indent():map("<leader>ug")
 Snacks.toggle.scroll():map("<leader>uS")
 Snacks.toggle.profiler():map("<leader>dpp")
 Snacks.toggle.profiler_highlights():map("<leader>dph")
+map("n", "<leader>dps", function() Snacks.profiler.scratch() end, { desc = "Profiler Scratch Buffer" })
 
 if vim.lsp.inlay_hint then
   Snacks.toggle.inlay_hints():map("<leader>uh")
@@ -187,3 +189,10 @@ map({ "n", "x" }, "<localleader>r", function() Snacks.debug.run() end, { desc = 
 
 -- Dashboard
 map("n", "<leader>h", function() Snacks.dashboard() end, { desc = "Dashboard" })
+
+-- Scratch buffers
+map("n", "<leader>.", function() Snacks.scratch() end,        { desc = "Toggle Scratch Buffer" })
+map("n", "<leader>S", function() Snacks.scratch.select() end, { desc = "Select Scratch Buffer" })
+
+-- Notifications
+map("n", "<leader>un", function() Snacks.notifier.hide() end, { desc = "Dismiss All Notifications" })

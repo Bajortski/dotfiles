@@ -62,7 +62,15 @@ return {
           if not ok then return end
 
           -- Indent
-          vim.bo[ev.buf].indentexpr = "v:lua.vim.treesitter.get_node():type()"
+          if vim.tbl_contains({ "markdown", "text", "tex", "plaintex" }, ev.match) then
+            -- Prose: copy the previous line's indentation via 'autoindent'.
+            -- Treesitter has no useful indent here and would flatten nesting.
+            vim.bo[ev.buf].indentexpr = ""
+          else
+            -- Code: use treesitter's real indent expression (the previous value
+            -- returned a node-type string, which coerced to 0 and broke indent).
+            vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
 
           -- Folds
 	  vim.wo.foldenable = false

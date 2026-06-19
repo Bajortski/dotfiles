@@ -5,6 +5,14 @@ return {
     require('minuet').setup {
       request_timeout = 30,
       provider = 'openai_compatible',
+      -- Don't auto-trigger the inline suggestion at the start of a line or on a
+      -- blank line (i.e. when there's only whitespace before the cursor).
+      enable_predicates = {
+        function()
+          local col = vim.api.nvim_win_get_cursor(0)[2]
+          return vim.api.nvim_get_current_line():sub(1, col):find('%S') ~= nil
+        end,
+      },
       virtualtext = {
         auto_trigger_ft = { 'markdown' },
         keymap = {
