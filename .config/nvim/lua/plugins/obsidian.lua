@@ -52,7 +52,7 @@ return {
     },
 
     picker = {
-      name = "snacks-picker",
+      name = "snacks.picker",
     },
 
     -- control built-in UI rendering

@@ -34,6 +34,13 @@ return {
     "folke/snacks.nvim",
     opts = {
       picker = {
+        -- Show dotfiles (e.g. .config, .gitignore) in file/grep results.
+        -- `.gitignore`d files stay hidden; toggle them in-picker with <a-i>.
+        sources = {
+          files = { hidden = true },
+          grep = { hidden = true },
+          explorer = { hidden = true },
+        },
         win = {
           input = {
             keys = {

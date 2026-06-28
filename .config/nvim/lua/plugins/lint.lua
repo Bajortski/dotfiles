@@ -77,9 +77,13 @@ return {
             return false
           end
           -- Skip linters whose binary isn't present yet (e.g. mason still
-          -- installing), and respect any `condition`.
+          -- installing), and respect any `condition`. `cmd` may be a function
+          -- (resolved at runtime), so only probe it when it's a string.
           local cmd = type(linter) == "table" and linter.cmd or nil
-          if cmd and vim.fn.executable(cmd) ~= 1 then
+          if type(cmd) == "function" then
+            cmd = cmd()
+          end
+          if type(cmd) == "string" and vim.fn.executable(cmd) ~= 1 then
             return false
           end
           return not (type(linter) == "table" and linter.condition and not linter.condition(ctx))

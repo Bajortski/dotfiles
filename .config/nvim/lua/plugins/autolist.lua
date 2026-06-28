@@ -7,7 +7,10 @@ return {
   config = function()
     local fts = { "markdown", "text", "tex", "plaintex", "norg" }
 
-    require("autolist").setup()
+    require("autolist").setup({
+      -- Don't auto-start a list just because a line ends in `:` (unwanted).
+      colon = { indent = false, indent_raw = false, preferred = "-" },
+    })
 
     -- Buffer-local so other filetypes (and blink/mini.pairs <CR> elsewhere)
     -- are untouched.
