@@ -9,7 +9,7 @@ function fish_greeting
 end
 
 function fish_prompt
-    printf '%s@%s %s%s%s > ' $USER \
+    printf '%s %s%s%s > ' $USER \
         (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
 end
 

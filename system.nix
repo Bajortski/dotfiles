@@ -5,6 +5,7 @@
   ];
   ids.gids.nixbld = 350;
   programs.zsh.enable = true;
+  programs.fish.enable = true;
   system.stateVersion = 4;
   users.users.toast = {
     name = "toast";

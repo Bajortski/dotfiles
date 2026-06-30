@@ -4,7 +4,7 @@
     enable = true;
     settings = {
       user.name = "toast";
-      user.email = "bajortskiproton.me@proton.me";
+      user.email = "bajortski@proton.me";
     };
 };
   programs.zsh.enable = true;
