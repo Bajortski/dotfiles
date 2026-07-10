@@ -3,7 +3,6 @@ return {
   dependencies = {
     'saghen/blink.lib',
     'rafamadriz/friendly-snippets',
-    'milanglacier/minuet-ai.nvim',
   },
   build = function()
     require('blink.cmp').build():pwait(60000)
@@ -16,10 +15,10 @@ return {
       preset = 'default',
       ["<Tab>"] = {
         function(cmp)
-          local ok, vt = pcall(require, 'minuet.virtualtext')
-          if not ok then return false end
-          if vt.action.is_visible() then
-            vt.action.accept()
+          -- When cotyper has a ghost, Tab accepts it one word at a time.
+          local ok, ct = pcall(require, 'cotyper')
+          if ok and ct.is_visible() then
+            ct.accept_word()
             return true
           end
           return cmp.accept()
