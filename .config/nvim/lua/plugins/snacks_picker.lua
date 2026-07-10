@@ -1,3 +1,5 @@
+-- File finding and grep now live in fff.lua (fff.nvim). This file keeps everything else
+-- on snacks: buffers, recent, git, LSP, diagnostics, search, marks, explorer, etc.
 local VAULT = vim.fn.expand("~/Documents/Vaulternative")
 
 local function in_vault()
@@ -5,7 +7,9 @@ local function in_vault()
   return vim.startswith(bufpath, vim.fs.normalize(VAULT) .. "/")
 end
 
--- Helper: wraps Snacks.picker.pick into a callable, optionally rooted
+-- Wrap a Snacks picker source in a callable rooted to the vault (when editing a vault
+-- file) or the git/project root, unless `opts.root == false`. Still used by non-file
+-- pickers like recent.
 local function pick(source, opts)
   opts = opts or {}
   return function()
@@ -17,13 +21,6 @@ local function pick(source, opts)
     end
     o.root = nil
     Snacks.picker.pick(source, o)
-  end
-end
-
--- Helper: find config files in stdpath("config")
-local function config_files()
-  return function()
-    Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
   end
 end
 
@@ -66,16 +63,11 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader>,",       function() Snacks.picker.buffers() end,                                    desc = "Buffers" },
-      { "<leader>/",       pick("grep"),                                                               desc = "Grep (Root Dir)" },
       { "<leader>:",       function() Snacks.picker.command_history() end,                             desc = "Command History" },
-      { "<leader><space>", pick("files", { root = false }),                                            desc = "Find Files (cwd)" },
       { "<leader>n",       function() Snacks.picker.notifications() end,                              desc = "Notification History" },
       -- find
       { "<leader>fb",      function() Snacks.picker.buffers() end,                                    desc = "Buffers" },
       { "<leader>fB",      function() Snacks.picker.buffers({ hidden = true, nofile = true }) end,    desc = "Buffers (all)" },
-      { "<leader>fc",      config_files(),                                                             desc = "Find Config File" },
-      { "<leader>ff",      pick("files"),                                                              desc = "Find Files (Root Dir / Vault)" },
-      { "<leader>fF",      function() Snacks.picker.files({ cwd = vim.fn.expand("~") }) end,         desc = "Find Files (Global)" },
       { "<leader>fg",      function() Snacks.picker.git_files() end,                                  desc = "Find Files (git-files)" },
       { "<leader>fr",      pick("recent"),                                                             desc = "Recent" },
       { "<leader>fR",      function() Snacks.picker.recent({ filter = { cwd = true } }) end,          desc = "Recent (cwd)" },
@@ -92,11 +84,7 @@ return {
       -- grep
       { "<leader>sb",      function() Snacks.picker.lines() end,                                      desc = "Buffer Lines" },
       { "<leader>sB",      function() Snacks.picker.grep_buffers() end,                               desc = "Grep Open Buffers" },
-      { "<leader>sg",      pick("grep"),                                                               desc = "Grep (Root Dir / Vault)" },
-      { "<leader>sG",      pick("grep", { root = false }),                                             desc = "Grep (cwd / Vault)" },
       { "<leader>sp",      function() Snacks.picker.lazy() end,                                       desc = "Search for Plugin Spec" },
-      { "<leader>sw",      pick("grep_word"),                          mode = { "n", "x" },            desc = "Visual selection or word (Root Dir)" },
-      { "<leader>sW",      pick("grep_word", { root = false }),        mode = { "n", "x" },            desc = "Visual selection or word (cwd)" },
       -- search
       { '<leader>s"',      function() Snacks.picker.registers() end,                                  desc = "Registers" },
       { '<leader>s/',      function() Snacks.picker.search_history() end,                             desc = "Search History" },
