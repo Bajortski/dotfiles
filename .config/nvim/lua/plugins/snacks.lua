@@ -19,7 +19,7 @@ return {
       preset = {
         header = require("util.random_quote").from_markdown("~/.config/nvim/quotes.md"),
         keys = {
-          { icon = "󰍉", key = "f", desc = "search", action = ":lua require('fff').find_files()" },
+          { icon = "󰍉", key = "f", desc = "search", action = ":lua Snacks.picker.files()" },
           { icon = "", key = "n", desc = "create new file", action = ":ene | startinsert" },
           { icon = "", key = "p", desc = "projects", action = ":lua Snacks.picker.projects()" },
           { icon = "󱋢", key = "r", desc = "browse recent files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
@@ -27,7 +27,7 @@ return {
             icon = "",
             key = "c",
             desc = "browse config files",
-            action = ":lua require('fff').find_files({cwd = vim.fn.stdpath('config')})",
+            action = ":lua Snacks.picker.files({cwd = vim.fn.stdpath('config')})",
           },
           {
             icon = "󱎮",

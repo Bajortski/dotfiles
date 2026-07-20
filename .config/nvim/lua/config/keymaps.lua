@@ -6,7 +6,7 @@ map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
 map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
 map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
 
--- Resize window using <ctrl> arrow keys
+-- Resize window
 map("n", "<C-Up>",    "<cmd>resize +2<cr>",          { desc = "Increase Window Height" })
 map("n", "<C-Down>",  "<cmd>resize -2<cr>",          { desc = "Decrease Window Height" })
 map("n", "<C-Left>",  "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
@@ -57,7 +57,7 @@ map("i", ";", ";<c-g>u")
 -- Save file
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 
--- Keywordprg
+-- Keywordpg
 map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
 -- Better indenting
@@ -89,7 +89,6 @@ end, { desc = "Quickfix List" })
 map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
 map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
--- Format (swap for conform.nvim later if needed)
 map({ "n", "x" }, "<leader>cf", function()
   vim.lsp.buf.format({ timeout_ms = 3000 })
 end, { desc = "Format" })

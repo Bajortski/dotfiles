@@ -1,10 +1,25 @@
--- File finding and grep now live in fff.lua (fff.nvim). This file keeps everything else
--- on snacks: buffers, recent, git, LSP, diagnostics, search, marks, explorer, etc.
+-- All file finding and grep lives here on snacks.picker: files, grep, word-grep,
+-- buffers, recent, git, LSP, diagnostics, search, marks, etc. (The file explorer is
+-- neo-tree; see neo-tree.lua.)
 local VAULT = vim.fn.expand("~/Documents/Vaulternative")
 
 local function in_vault()
   local bufpath = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
   return vim.startswith(bufpath, vim.fs.normalize(VAULT) .. "/")
+end
+
+-- Search root for the "File Dir" finder: the whole vault when editing a vault note
+-- (so notes stay browsable across folders), otherwise the current buffer's directory,
+-- falling back to the working dir for unnamed/scratch buffers.
+local function buf_dir()
+  if in_vault() then
+    return VAULT
+  end
+  local name = vim.api.nvim_buf_get_name(0)
+  if name == "" then
+    return vim.fn.getcwd()
+  end
+  return vim.fs.dirname(name)
 end
 
 -- Wrap a Snacks picker source in a callable rooted to the vault (when editing a vault
@@ -65,6 +80,17 @@ return {
       { "<leader>,",       function() Snacks.picker.buffers() end,                                    desc = "Buffers" },
       { "<leader>:",       function() Snacks.picker.command_history() end,                             desc = "Command History" },
       { "<leader>n",       function() Snacks.picker.notifications() end,                              desc = "Notification History" },
+      -- files (root = vault/git-root; cwd = current file's directory)
+      { "<leader><space>", function() Snacks.picker.files({ cwd = buf_dir() }) end,                   desc = "Find Files (File Dir)" },
+      { "<leader>ff",      pick("files"),                                                             desc = "Find Files (Root Dir / Vault)" },
+      { "<leader>fF",      function() Snacks.picker.files({ cwd = vim.fn.expand("~") }) end,          desc = "Find Files (Global)" },
+      { "<leader>fc",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,    desc = "Find Config File" },
+      -- grep
+      { "<leader>/",       pick("grep"),                                                              desc = "Grep (Root Dir / Vault)" },
+      { "<leader>sg",      pick("grep"),                                                              desc = "Grep (Root Dir / Vault)" },
+      { "<leader>sG",      function() Snacks.picker.grep({ cwd = vim.fn.getcwd() }) end,              desc = "Grep (cwd)" },
+      { "<leader>sw",      pick("grep_word"),                                    mode = { "n", "x" }, desc = "Grep Word (Root Dir / Vault)" },
+      { "<leader>sW",      function() Snacks.picker.grep_word({ cwd = vim.fn.getcwd() }) end, mode = { "n", "x" }, desc = "Grep Word (cwd)" },
       -- find
       { "<leader>fb",      function() Snacks.picker.buffers() end,                                    desc = "Buffers" },
       { "<leader>fB",      function() Snacks.picker.buffers({ hidden = true, nofile = true }) end,    desc = "Buffers (all)" },

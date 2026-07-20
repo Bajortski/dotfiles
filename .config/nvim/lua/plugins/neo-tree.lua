@@ -5,6 +5,16 @@ return {
     cmd = "Neotree",
     keys = {
       {
+        "<leader>fe",
+        function()
+          require("neo-tree.command").execute({
+            toggle = true,
+            dir = vim.fs.root(0, { ".git", ".hg", ".svn" }) or vim.uv.cwd(),
+          })
+        end,
+        desc = "Explorer NeoTree (Root Dir)",
+      },
+      {
         "<leader>fE",
         function()
           require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })

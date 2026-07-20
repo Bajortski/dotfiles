@@ -8,6 +8,8 @@ return {
     -- gemma4 via Ollama (run: ollama pull gemma4:e2b-mlx). Set llm=false to skip it.
     model = "gemma4:e2b-mlx",
     filetypes = { "markdown" },
+    -- Keep a separate learned style guide per note tag (first frontmatter `tags:` entry).
+    style_by_tag = true,
     -- Personal style/voice, appended to the plugin's general prompt. Edit this freely.
     style = table.concat({
       "My name is Toast. I usually write in English.",

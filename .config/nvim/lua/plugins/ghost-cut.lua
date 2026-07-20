@@ -3,9 +3,9 @@
 return {
   "Bajortski/ghost-cut.nvim",
   keys = {
-    { "gx", mode = "x", desc = "Ghost cut selection" },
+    { "gX", mode = "x", desc = "Ghost cut selection" },
   },
-  opts = {},
+  opts = { cut_key = "gX" },
   config = function(_, opts)
     require("ghost-cut").setup(opts)
   end,
