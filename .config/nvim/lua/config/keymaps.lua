@@ -195,3 +195,13 @@ map("n", "<leader>S", function() Snacks.scratch.select() end, { desc = "Select S
 
 -- Notifications
 map("n", "<leader>un", function() Snacks.notifier.hide() end, { desc = "Dismiss All Notifications" })
+
+-- :wq writes+closes only the current window; route it to :wqall so quitting
+-- always saves everything. Guarded so it only expands when the whole command
+-- is exactly "wq" (:wq file, :cwq, searches etc. are untouched).
+map("ca", "wq", function()
+  if vim.fn.getcmdtype() == ":" and vim.fn.getcmdline() == "wq" then
+    return "wqall"
+  end
+  return "wq"
+end, { expr = true })
