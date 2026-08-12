@@ -60,6 +60,12 @@ return {
       enable = true,
     },
 
+    -- Checkbox toggle cycle. Upstream puts `x` last, so ticking a box takes four
+    -- presses; done is by far the most common next state, so it goes first.
+    checkbox = {
+      order = { " ", "x", "~", "!", ">" },
+    },
+
     -- callbacks
     callbacks = {
       enter_note = function(note)

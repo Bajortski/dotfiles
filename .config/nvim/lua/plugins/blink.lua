@@ -4,8 +4,15 @@ return {
     'saghen/blink.lib',
     'rafamadriz/friendly-snippets',
   },
-  build = function()
-    require('blink.cmp').build():pwait(60000)
+  -- Build the Rust matcher locally instead of downloading the prebuilt one:
+  -- upstream's release binaries have a 4-mod-8 __LINKEDIT string pool that
+  -- macOS 26's dyld refuses to load. The script rebuilds and realigns it.
+  build = function(plugin)
+    local script = vim.fn.stdpath('config') .. '/scripts/build-blink-fuzzy.sh'
+    local out = vim.system({ 'sh', script, plugin.dir }, { text = true }):wait(300000)
+    if out.code ~= 0 then
+      error('blink fuzzy build failed:\n' .. (out.stderr or '') .. (out.stdout or ''))
+    end
   end,
 
   ---@module 'blink.cmp'

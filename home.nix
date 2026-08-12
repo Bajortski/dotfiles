@@ -7,5 +7,4 @@
       user.email = "bajortski@proton.me";
     };
 };
-  programs.zsh.enable = true;
 }
