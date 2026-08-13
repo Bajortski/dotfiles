@@ -3,9 +3,11 @@
 return {
   "Bajortski/ghost-cut.nvim",
   keys = {
-    { "gX", mode = "x", desc = "Ghost cut selection" },
+    { "gx", mode = "x", desc = "Ghost cut selection" },
   },
-  opts = { cut_key = "gX" },
+  -- The plugin defaults to gX (gx is Neovim's built-in "open with system app"),
+  -- but that built-in is normal-mode only, so visual gx is free to reuse here.
+  opts = { cut_key = "gx" },
   config = function(_, opts)
     require("ghost-cut").setup(opts)
   end,

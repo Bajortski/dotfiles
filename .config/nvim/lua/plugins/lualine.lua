@@ -1,6 +1,11 @@
+local obsidian_sync = require("util.obsidian_sync")
+
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
+  init = function()
+    obsidian_sync.setup()
+  end,
   opts = {
     options = {
       icons_enabled = true,
@@ -38,7 +43,12 @@ return {
       lualine_a = { "mode" },
       lualine_b = { "branch", "diff", "diagnostics" },
       lualine_c = { "filename" },
-      lualine_x = { "encoding", "filetype" },
+      lualine_x = {
+        -- Obsidian Sync state; renders as nothing outside the vault.
+        { obsidian_sync.component, cond = obsidian_sync.current_in_vault },
+        "encoding",
+        "filetype",
+      },
       lualine_y = { "location" },
     },
     inactive_sections = {

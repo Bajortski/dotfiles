@@ -34,14 +34,13 @@ return {
             key = "J",
             desc = "journal today",
             action = function()
-              local year = os.date("%Y")
               local today = os.date("%Y-%m-%d")
-              local path = vim.fn.expand("~/Documents/Vaulternative/Journal/" .. today .. ".md")
-              local dir = vim.fn.fnamemodify(path, ":h")
-              if vim.fn.isdirectory(dir) == 0 then
-                vim.fn.mkdir(dir, "p")
-              end
-              vim.cmd("edit " .. path)
+              -- Seeds a new entry from Templates/daily.md with its {{date}}
+              -- placeholders expanded; an existing entry opens untouched.
+              require("util.obsidian_template").open(
+                "~/Documents/Vaulternative/Journal/" .. today .. ".md",
+                "daily"
+              )
             end,
           },
           { icon = "󰋚", key = "s", desc = "restore last session", section = "session" },
