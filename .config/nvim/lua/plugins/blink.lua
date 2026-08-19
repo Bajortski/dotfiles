@@ -32,6 +32,16 @@ return {
         end,
         "fallback",
       },
+      -- On a bullet/checkbox/ordered line, Shift-Tab indents the whole line
+      -- instead of dropping a tab wherever the cursor happens to sit. Ordered
+      -- ahead of "fallback" but behind snippet jumps, which keep priority.
+      ["<S-Tab>"] = {
+        "snippet_backward",
+        function()
+          return require('util.list_tab').maybe_indent()
+        end,
+        "fallback",
+      },
       ["<CR>"] = { "fallback" },
     },
 
