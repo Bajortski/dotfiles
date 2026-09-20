@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs
+     id="defs440">
+    <linearGradient
+       x1="49.021549"
+       y1="-0.079835393"
+       x2="49.021549"
+       y2="97.845657"
+       id="linearGradient-1"
+       gradientTransform="matrix(0.49500848,0,0,2.3234666,34.367657,9.4880553)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         stop-color="#16B0ED"
+         stop-opacity="0.800235524"
+         offset="0%"
+         id="stop197" />
+      <stop
+         stop-color="#0F59B2"
+         stop-opacity="0.83700023"
+         offset="100%"
+         id="stop199" />
+    </linearGradient>
+    <linearGradient
+       x1="326.17365"
+       y1="-0.069164939"
+       x2="326.17365"
+       y2="98.851547"
+       id="linearGradient-2"
+       gradientTransform="matrix(-0.50009738,0,0,2.2998234,360.41234,9.4880553)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         stop-color="#7DB643"
+         offset="0%"
+         id="stop202" />
+      <stop
+         stop-color="#367533"
+         offset="100%"
+         id="stop204" />
+    </linearGradient>
+    <linearGradient
+       x1="103.88479"
+       y1="-0.11508822"
+       x2="103.88479"
+       y2="178.55785"
+       id="linearGradient-3"
+       gradientTransform="matrix(0.90309898,0,0,1.2735433,34.367657,9.4880553)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         stop-color="#88C649"
+         stop-opacity="0.8"
+         offset="0%"
+         id="stop207" />
+      <stop
+         stop-color="#439240"
+         stop-opacity="0.84"
+         offset="100%"
+         id="stop209" />
+    </linearGradient>
+  </defs>
+<g transform="translate(61.4400,61.4400) scale(3.520000)">
+<path
+     d="M 34.39677,58.236531 82.870719,9.302562 V 236.88696 L 34.39677,188.51815 Z"
+     id="Left---green"
+     fill="url(#linearGradient-1)"
+     style="fill:url(#linearGradient-1);stroke-width:1.07244" />
+<path
+     d="M 221.69673,58.610128 172.55877,9.2405879 173.5548,236.82916 222.02875,188.46037 Z"
+     id="Right---blue"
+     fill="url(#linearGradient-2)"
+     style="fill:url(#linearGradient-2);stroke-width:1.07244" />
+<path
+     d="M 82.838401,9.3414878 208.86559,201.62861 173.59939,236.88922 47.506234,45.027731 Z"
+     id="Cross---blue"
+     fill="url(#linearGradient-3)"
+     style="fill:url(#linearGradient-3);stroke-width:1.07244" />
+<path
+     d="m 82.881769,98.529378 -0.06706,7.573632 -38.911476,-57.438942 3.602976,-3.669847 z"
+     id="Shadow"
+     fill-opacity="0.13"
+     fill="#000000"
+     style="stroke-width:1.07244" />
+</g>
+</svg>

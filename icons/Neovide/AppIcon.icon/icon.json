@@ -1,0 +1,21 @@
+{
+  "fill" : {
+    "automatic-gradient" : "extended-srgb:0.94510,0.95686,0.96863,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [ { "image-name" : "mark.svg", "name" : "Mark" } ],
+      "shadow" : { "kind" : "neutral", "opacity" : 0.5 },
+      "translucency" : { "enabled" : false, "value" : 0 }
+    },
+    {
+      "layers" : [ { "image-name" : "gear.svg", "name" : "Gear" } ],
+      "shadow" : { "kind" : "neutral", "opacity" : 0.5 },
+      "translucency" : { "enabled" : false, "value" : 0 }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [ "watchOS" ],
+    "squares" : [ "macOS" ]
+  }
+}

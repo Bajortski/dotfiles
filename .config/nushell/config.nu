@@ -1,13 +1,5 @@
-# config.nu — nushell interactive configuration.
-# Tracked in ~/dotfiles/.config/nushell/, symlinked into
-# ~/Library/Application Support/nushell/ (nushell's config dir on macOS).
-
 $env.config.show_banner = false
 
-# --- prompt ------------------------------------------------------------------
-# fish rendered "toast ~/d/dotfiles > " using prompt_pwd, which shortens every
-# component but the last to its first character (keeping the dot on dotdirs).
-# Rebuilt here by hand, since nushell has no equivalent builtin.
 def prompt-pwd []: nothing -> string {
     let path = ($env.PWD | str replace $nu.home-dir "~")
     let parts = ($path | split row "/")
@@ -35,14 +27,9 @@ $env.PROMPT_INDICATOR_VI_INSERT = " > "
 $env.PROMPT_INDICATOR_VI_NORMAL = " < "
 $env.PROMPT_MULTILINE_INDICATOR = " :: "
 
-# --- zoxide ------------------------------------------------------------------
-# env.nu regenerates this file on every launch.
 source ~/.cache/zoxide.nu
 
-# --- secrets -----------------------------------------------------------------
-# Not tracked in this repo. See ~/secrets.nu.
 source ~/secrets.nu
 
-# --- greeting ----------------------------------------------------------------
 source ~/dotfiles/.config/nushell/greeting.nu
 greeting
