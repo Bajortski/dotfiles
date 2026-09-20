@@ -1,14 +1,3 @@
-# greeting.nu — the startup line, carried over from fish_greeting.
-# Generated from the vault note `Links/Statuses or Remarks.md` using the same
-# cleaning as ~/bin/quotes-to-statuses.py (frontmatter and parenthetical
-# attributions stripped, deduped). Regenerate with:
-#
-#   python3 ~/bin/quotes-to-statuses.py \
-#       "$HOME/Documents/Vaulternative/Links/Statuses or Remarks.md" \
-#       /tmp/statuses.txt --no-push
-#
-# nushell has no greeting hook, so config.nu sources this and calls `greeting`.
-
 const GREETINGS = [
     "At your discretion."
     "Your platform is not my platform, stand on your own platform, there is not room for both of us on this soapbox."
