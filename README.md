@@ -3,6 +3,7 @@ I'm not a very technical user so I wouldn't recommend using these. I'm likely to
 
 This repo contains configs for:
 - Neovim
+- Nushell
 - Ghostty
 - Subtui
 - and my browser homepage

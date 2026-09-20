@@ -2,6 +2,7 @@
   environment.systemPackages = [
     pkgs.fastfetch
     pkgs.neovim
+    pkgs.nushell
   ];
   ids.gids.nixbld = 350;
   programs.zsh.enable = true;

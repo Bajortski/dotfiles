@@ -1,6 +1,8 @@
-command = /opt/homebrew/bin/fish
+command = /run/current-system/sw/bin/nu
 
-shell-integration = fish
+# `detect` rather than `nushell`: explicitly naming nushell breaks
+# `ghostty +new-window -e` (ghostty-org/ghostty#12378).
+shell-integration = detect
 
 mouse-hide-while-typing = true
 
