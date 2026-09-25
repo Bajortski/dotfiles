@@ -3,6 +3,9 @@ command = /run/current-system/sw/bin/nu
 # `detect` rather than `nushell`: explicitly naming nushell breaks
 # `ghostty +new-window -e` (ghostty-org/ghostty#12378).
 shell-integration = detect
+# ssh-env: send TERM=xterm-256color to remote hosts, which mostly lack
+# xterm-ghostty terminfo (tilde.town's signup exits 1 on it).
+shell-integration-features = ssh-env
 
 mouse-hide-while-typing = true
 
