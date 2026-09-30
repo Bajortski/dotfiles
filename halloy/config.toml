@@ -1,1 +1,69 @@
-/Users/toast/Library/Application Support/halloy/config.toml
+theme = "toasts-trueblack-theme"
+
+# Servers
+[servers.sss]
+server = "i.starshard.space"
+sasl.plain.username = "bajortski@halloy"
+sasl.plain.password_file = "~/Library/Application Support/halloy/password"
+nickname = "bajortski"
+
+[servers.wikibase]
+server = "127.0.0.1"
+port = 6667
+use_tls = false
+nickname = "watcher"
+password_file = "/Users/toast/git/IRChat/.local/wikiBase/watcher.pass"
+channels = ["#wikibase"]
+
+# Customization
+[actions.sidebar]
+channel = "replace-pane"
+
+[actions.buffer]
+click_channel_name = "replace-pane"
+click_highlight = "replace-pane"
+click_nickname = "replace-pane"
+join_channel = "replace-pane"
+local = "replace-pane"
+message_channel = "replace-pane"
+message_user = "replace-pane"
+
+[buffer.server_messages.condense]
+dimmed = false
+icon = "chevron"
+
+[buffer.channel]
+channel_name_casing = "lowercase"
+
+[buffer.mark_as_read]
+on_message = "focused"
+
+[buffer.nickname.hide_consecutive]
+enabled = { smart = 120 }
+
+[buffer.text_input]
+key_bindings = "default"
+auto_format = "all"
+
+[buffer.typing]
+share = true
+
+[buffer.chathistory]
+infinite_scroll = true
+
+[highlights.nickname]
+exclude = ["*"]
+case_insensitive = false
+
+[font]
+family = "Maple Mono NF"
+weight = "medium"
+bold_weight = "semibold"
+
+[file_transfer]
+save_directory = "/Users/halloy/Downloads"
+
+[runtime]
+power_preference = "high-performance"
+vsync = false
+antialiasing = true
