@@ -34,5 +34,8 @@ $env.PATH = (
 $env.DEVKITPRO = "/opt/devkitpro"
 $env.DEVKITPPC = "/opt/devkitpro/devkitPPC"
 
+# One HuggingFace model store for every project, outside ~/.cache so clears don't wipe it
+$env.HF_HOME = $"($nu.home-dir)/.local/share/huggingface"
+
 mkdir ($nu.home-dir | path join ".cache")
 zoxide init nushell | save --force ($nu.home-dir | path join ".cache" "zoxide.nu")
