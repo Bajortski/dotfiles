@@ -2,6 +2,7 @@
   environment.systemPackages = [
     pkgs.fastfetch
     inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
+    (pkgs.callPackage ./pkgs/neovide { })
     pkgs.nushell
   ];
   ids.gids.nixbld = 350;

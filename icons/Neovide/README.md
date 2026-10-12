@@ -11,7 +11,19 @@ opaque (translucency off) so the mark stays saturated in the default appearance.
 
 Open it with Icon Composer (in Xcode.app/Contents/Applications) to tweak.
 
-## Rebuild + install
+## Nix package
+
+Neovide is built by `pkgs/neovide/default.nix`, which bakes the icon in from
+`compiled/` (the sandboxed build has no Xcode). After editing `AppIcon.icon`,
+recompile into `compiled/` and rebuild the system:
+
+```sh
+xcrun actool AppIcon.icon --compile compiled --app-icon AppIcon \
+  --output-partial-info-plist /tmp/p.plist \
+  --platform macosx --minimum-deployment-target 26.0 --errors --warnings
+```
+
+## Rebuild + install (old cask install)
 
 ```sh
 cd ~/dotfiles/icons/Neovide
