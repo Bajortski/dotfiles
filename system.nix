@@ -1,7 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
   environment.systemPackages = [
     pkgs.fastfetch
-    pkgs.neovim
+    inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
     pkgs.nushell
   ];
   ids.gids.nixbld = 350;
@@ -13,6 +13,11 @@
     home = "/Users/toast";
   };
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
+  # Prebuilt neovim nightly, so the switch doesn't compile it from source.
+  nix.settings.extra-substituters = [ "https://nix-community.cachix.org" ];
+  nix.settings.extra-trusted-public-keys = [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  ];
 
   # Keep the store tidy automatically. Weekly GC of generations older than
   # 30 days, then dedup the store. Package updates stay manual.
