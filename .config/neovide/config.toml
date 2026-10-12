@@ -1,0 +1,12 @@
+# Dock icon: winit calls NSApp.setApplicationIconImage: on startup with this
+# image, which otherwise clobbers the bundle's tintable Icon Composer icon
+# with the flat neovide.ico. Rendered from that bundle icon; rebuild with
+# ~/dotfiles/icons/Neovide/README.md if the system icon style changes.
+icon = "~/dotfiles/icons/Neovide/dock-icon.png"
+
+# Use the nix-managed nightly instead of the Homebrew neovim the cask pulls in.
+neovim-bin = "/run/current-system/sw/bin/nvim"
+
+# Nightly briefly attaches with ext_messages/ext_cmdline to catch startup errors,
+# which makes noice.nvim refuse to load. Off.
+startup-message-capture = false
