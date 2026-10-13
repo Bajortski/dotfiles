@@ -32,11 +32,16 @@ map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete
 map("n", "<leader>bi", function() Snacks.bufdelete.invisible() end, { desc = "Delete Invisible Buffers" })
 map("n", "<leader>bD", "<cmd>:bd<cr>",        { desc = "Delete Buffer and Window" })
 
--- Clear search on escape
+-- Clear search on escape; in normal mode also clear multicursors (the
+-- built-in clear is <C-l>, which is remapped above)
+local mc_ns = vim.api.nvim_create_namespace("nvim.multicursor")
 map({ "i", "n", "s" }, "<esc>", function()
   vim.cmd("noh")
+  if vim.fn.mode() == "n" then
+    vim.schedule(function() vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1) end)
+  end
   return "<esc>"
-end, { expr = true, desc = "Escape and Clear hlsearch" })
+end, { expr = true, desc = "Escape and Clear hlsearch / multicursors" })
 
 -- Clear search, diff update and redraw
 map("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { desc = "Redraw / Clear hlsearch / Diff Update" })
