@@ -61,7 +61,7 @@ weight = "medium"
 bold_weight = "semibold"
 
 [file_transfer]
-save_directory = "/Users/halloy/Downloads"
+save_directory = "/Users/toast/Downloads"
 
 [runtime]
 power_preference = "high-performance"
