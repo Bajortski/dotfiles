@@ -3,7 +3,7 @@
 -- pinned to its timecode. Needs CommandPost running with the bridge plugin in
 -- ~/Library/Application Support/CommandPost/Plugins/sever/.
 return {
-  dir = "~/Projects/sever.nvim",
+  dir = "~/git/sever.nvim",
   cmd = { "Sever", "SeverIndex", "SeverCommit", "SeverStatus", "SeverFollow", "SeverRedo" },
   opts = {},
   config = function(_, opts)
