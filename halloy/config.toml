@@ -7,13 +7,13 @@ sasl.plain.username = "bajortski@halloy"
 sasl.plain.password_file = "~/Library/Application Support/halloy/password"
 nickname = "bajortski"
 
-[servers.wikibase]
-server = "127.0.0.1"
-port = 6667
-use_tls = false
-nickname = "watcher"
-password_file = "/Users/toast/git/IRChat/.local/wikiBase/watcher.pass"
-channels = ["#wikibase"]
+# [servers.wikibase]
+# server = "127.0.0.1"
+# port = 6667
+# use_tls = false
+# nickname = "watcher"
+# password_file = "/Users/toast/git/IRChat/.local/wikiBase/watcher.pass"
+# channels = ["#wikibase"]
 
 # Customization
 [actions.sidebar]
