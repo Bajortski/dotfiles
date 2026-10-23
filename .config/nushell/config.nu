@@ -20,11 +20,11 @@ def prompt-pwd []: nothing -> string {
     | str join "/"
 }
 
-$env.PROMPT_COMMAND = {|| $"(ansi red)($env.USER) (prompt-pwd)(ansi reset)" }
+$env.PROMPT_COMMAND = {|| $"(ansi { fg: "#ff0000" })($env.USER) (prompt-pwd)(ansi reset)" }
 $env.PROMPT_COMMAND_RIGHT = ""
-$env.PROMPT_INDICATOR = $"(ansi red) > (ansi reset)"
-$env.PROMPT_INDICATOR_VI_INSERT = $"(ansi red) > (ansi reset)"
-$env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi red) < (ansi reset)"
+$env.PROMPT_INDICATOR = $"(ansi { fg: "#ff0000" }) > (ansi reset)"
+$env.PROMPT_INDICATOR_VI_INSERT = $"(ansi { fg: "#ff0000" }) > (ansi reset)"
+$env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi { fg: "#ff0000" }) < (ansi reset)"
 $env.PROMPT_MULTILINE_INDICATOR = " :: "
 
 source ~/.cache/zoxide.nu
