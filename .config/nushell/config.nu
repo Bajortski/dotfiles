@@ -1,5 +1,20 @@
 $env.config.show_banner = false
 
+# Syntax highlighting in shades of red, grouped by role
+let red_shades = {
+    "#ff0000": [internalcall external_resolved keyword]
+    "#ff4d4d": [external custom]
+    "#cc0000": [flag operator pipe redirection]
+    "#ff8080": [string externalarg filepath directory globpattern raw_string string_interpolation glob_interpolation]
+    "#ffb3b3": [int float bool datetime range nothing literal binary]
+    "#b30000": [variable vardecl signature match_pattern]
+    "#e05050": [block closure list record table matching_brackets]
+}
+$env.config.color_config = (
+    $red_shades | items {|hex, shapes| $shapes | each {|s| {$"shape_($s)": {fg: $hex}} } }
+    | flatten | reduce --fold $env.config.color_config {|it, acc| $acc | merge $it }
+)
+
 def prompt-pwd []: nothing -> string {
     let path = ($env.PWD | str replace $nu.home-dir "~")
     let parts = ($path | split row "/")
