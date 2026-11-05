@@ -26,9 +26,12 @@ focus_block() { # session block
   win=$("$REX" block ls -s "$1" --json --short=false |
     /usr/bin/jq -r --arg b "$2" '.blocks[] | select(.block_id == $b) | .window_id')
   app=$("$REX" client ls --json |
-    /usr/bin/jq -r '[.clients[] | select(.info.kind == "app")][0].client_id // empty')
-  [ -n "$app" ] &&
-    "$REX" -C "$app" do session.select session_id="$1" window_id="$win" >/dev/null
+    /usr/bin/jq -r '[.clients[] | select(.info.kind == "app" and .connection_state == "connected")]
+      | sort_by(.connected_at) | last | .client_id // empty')
+  # Switching the app's tab is best-effort: a reconnecting app shouldn't block focus.
+  if [ -n "$app" ]; then
+    "$REX" -C "$app" do session.select session_id="$1" window_id="$win" >/dev/null 2>&1 || true
+  fi
   "$REX" focus -s "$1" "$2"
 }
 
