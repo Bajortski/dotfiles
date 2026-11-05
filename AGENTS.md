@@ -73,12 +73,14 @@ Open a new shell afterwards, then do the `nixbld` GID check above.
 Some of the setup still lives outside nix:
 
 - **Homebrew** at `/opt/homebrew`. `zsh/.zshrc` runs `brew shellenv`.
-- **zoxide** (`brew install zoxide`). `nushell/env.nu` runs `zoxide init nushell`
-  on every start, and `config.nu` sources the result. Without zoxide, nushell
-  errors on launch.
-- **Ghostty** (download it, or `brew install --cask ghostty`). It launches `nu`.
-- **Halloy**, **subtui**, **Rex**: install them if Bajortski wants them. Their
-  configs are linked in step 5 whether or not the apps are installed.
+- **Rex** (Rex Beta, from superlogical). It isn't in nixpkgs. The nixpkgs package
+  named `rex` is an unrelated Perl tool, so don't add it.
+- **subtui**: install it if Bajortski wants it. Its config is linked in step 5
+  either way.
+
+zoxide, Ghostty and Halloy come from nix (step 4), so don't install them with
+Homebrew. nushell's `env.nu` runs `zoxide init` on every start, so nushell errors
+until the first switch is done.
 - `.zshrc` also sources `~/.local/bin/env` (from the uv installer) and adds
   `~/.lmstudio/bin` to PATH. Install uv (`curl -LsSf https://astral.sh/uv/install.sh | sh`)
   or zsh prints an error on every start.
@@ -103,7 +105,8 @@ sudo nix run nix-darwin -- switch --flake ~/dotfiles
   sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/dotfiles
   ```
 
-This installs nushell, neovim nightly, fastfetch, fish, git config (via
+This installs nushell, neovim nightly, fastfetch, fish, zoxide, Ghostty and Halloy
+(the two apps go in `/Applications/Nix Apps`), git config (via
 home-manager), Neovide (signed copy in `/Applications/Neovide.app` plus a `neovide`
 wrapper), Touch ID for sudo, and weekly nix GC/optimise.
 

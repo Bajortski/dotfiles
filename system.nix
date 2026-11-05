@@ -3,6 +3,10 @@
     pkgs.fastfetch
     inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
     pkgs.nushell
+    pkgs.zoxide
+    # GUI apps land in /Applications/Nix Apps.
+    pkgs.ghostty-bin # upstream's signed .dmg; the source build is Linux-only
+    pkgs.halloy
   ];
   ids.gids.nixbld = 350;
   programs.zsh.enable = true;
