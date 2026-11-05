@@ -1,0 +1,77 @@
+/* blackwhite: Bajortski's nvim colorscheme as Textual CSS. Pair with
+   blackwhite_theme.py (palette + Footer/cursor/scrollbar colours).
+   Source of truth: ~/.config/nvim/colors/blackwhite.lua */
+
+$bg: #000000;
+$bg-l5: #0D0D0D;
+$bg-l10: #1A1A1A;
+$fg: #FFFFFF;
+$fg-d15: #E0E0E0;
+$fg-d30: #B2B2B2;
+$fg-d40: #9A9A9A;
+$fg-d50: #808080;
+$red: #FF0000;
+$red-l10: #FF3333;
+$red-l20: #FF6666;
+$red-d50: #800000;
+
+Screen {
+    background: $bg;
+    color: $fg;
+}
+
+/* panes: thin square border, brighter when focused */
+.pane {
+    border: solid $fg-d50;
+    border-title-color: $fg-d40;
+    border-title-style: none;
+}
+.pane:focus-within {
+    border: solid $fg;
+    border-title-color: $fg;
+}
+
+/* lists: the theme handles the cursor row; .selected marks chosen rows (Visual) */
+ListView, ListView:focus, DataTable, DataTable:focus {
+    background: $bg;
+    background-tint: $bg 0%;  /* Textual tints focused widgets grey */
+}
+.selected {
+    background: $red-d50;
+}
+DataTable > .datatable--header {
+    background: $bg;
+    color: $fg-d40;
+    text-style: bold;
+}
+
+/* lualine-style statusline */
+#statusline {
+    dock: bottom;
+    height: 1;
+    background: $bg-l10;
+    color: $fg;
+}
+#statusline .mode {
+    background: $fg;
+    color: $bg;
+    text-style: bold;
+    padding: 0 1;
+}
+#statusline .meta {
+    color: $fg-d40;
+}
+
+Input {
+    background: $bg;
+    border: solid $fg-d50;
+}
+Input:focus {
+    border: solid $fg;
+}
+
+.muted   { color: $fg-d40; text-style: italic; }
+.key     { color: $red; text-style: bold; }
+.match   { background: $red; color: $bg; }
+.error   { color: $red; }
+.warning { color: $red-l20; }

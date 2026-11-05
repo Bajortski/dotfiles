@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="author" content="Bajortski">
+  <meta name="color-scheme" content="light dark">
+  <title>TOOL_NAME</title>
+  <script>
+    // Paint the right canvas before CSS loads so dark mode doesn't flash white.
+    try {
+      const t = localStorage.getItem('theme');
+      const dark = t === 'dark' || (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.style.backgroundColor = dark ? '#000' : '#fff';
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="base.css"/>
+</head>
+<body>
+  <table class="header">
+    <tr>
+      <td class="width-auto"><h1 class="title">TOOL_NAME</h1></td>
+      <th>version</th>
+      <td class="width-min">0.1</td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <div class="marquee-header"><p id="ticker"></p></div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="toolbar">
+    <input type="text" id="query" placeholder="search...">
+    <button type="button" id="run">run</button>
+  </div>
+
+  <h2>output</h2>
+  <div class="scroll-x">
+    <table>
+      <tr><th class="width-auto">name</th><th class="numeric">value</th></tr>
+      <tr><td>example</td><td class="numeric">42</td></tr>
+    </table>
+  </div>
+
+  <p class="status" id="status">ready · <kbd>t</kbd> toggles theme</p>
+
+  <script>
+    document.documentElement.style.removeProperty('background-color');
+
+    // "t" toggles light/dark; returning to the system choice drops the override.
+    document.addEventListener('keydown', e => {
+      if (e.key !== 't' || e.metaKey || e.ctrlKey || e.altKey) return;
+      const el = e.target;
+      if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable)) return;
+      const root = document.documentElement;
+      const sysDark = matchMedia('(prefers-color-scheme: dark)').matches;
+      const next = (root.dataset.theme || (sysDark ? 'dark' : 'light')) === 'dark' ? 'light' : 'dark';
+      try {
+        if ((next === 'dark') === sysDark) { delete root.dataset.theme; localStorage.removeItem('theme'); }
+        else { root.dataset.theme = next; localStorage.setItem('theme', next); }
+      } catch (err) { root.dataset.theme = next; }
+    });
+
+    // Marquee: repeat the unit so the -50% loop is seamless. Delete if unused.
+    const ticker = document.getElementById('ticker');
+    ticker.textContent = 'TOOL_NAME · a thing that does a thing · '.repeat(60);
+  </script>
+</body>
+</html>
