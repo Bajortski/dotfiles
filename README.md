@@ -7,3 +7,5 @@ This repo contains configs for:
 - Ghostty
 - Subtui
 - and my browser homepage
+
+Installing on a fresh machine (or asking an agent to): see [AGENTS.md](AGENTS.md).
