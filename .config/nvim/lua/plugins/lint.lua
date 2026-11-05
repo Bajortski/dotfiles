@@ -25,7 +25,11 @@ return {
       --     end,
       --   }
       ---@type table<string,table>
-      linters = {},
+      linters = {
+        -- MD041 (first line must be an H1) fires on every Obsidian note that
+        -- opens with frontmatter + body text, e.g. journal Yesterday/Tomorrow links.
+        markdownlint = { prepend_args = { "--disable", "MD041" } },
+      },
     },
     config = function(_, opts)
       local lint = require("lint")
