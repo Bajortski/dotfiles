@@ -56,5 +56,8 @@ if hit=$(find_nvim_block); then
   set -- $hit
   focus_block "$1" "$2"
 else
-  "$REX" new nvim --cwd "$HOME" -- "$NVIM"
+  new=$("$REX" new nvim --json --cwd "$HOME" -- "$NVIM" |
+    /usr/bin/jq -r '"\(.session_id) \(.initial_windows[0].block_ids[0])"')
+  set -- $new
+  focus_block "$1" "$2"
 fi
