@@ -22,9 +22,19 @@ find_nvim_block() {
 
 open -b com.superlogical.rex
 
+focus_block() { # session block
+  win=$("$REX" block ls -s "$1" --json --short=false |
+    /usr/bin/jq -r --arg b "$2" '.blocks[] | select(.block_id == $b) | .window_id')
+  app=$("$REX" client ls --json |
+    /usr/bin/jq -r '[.clients[] | select(.info.kind == "app")][0].client_id // empty')
+  [ -n "$app" ] &&
+    "$REX" -C "$app" do session.select session_id="$1" window_id="$win" >/dev/null
+  "$REX" focus -s "$1" "$2"
+}
+
 if hit=$(find_nvim_block); then
   set -- $hit
-  "$REX" focus -s "$1" "$2"
+  focus_block "$1" "$2"
 else
   "$REX" new nvim --cwd "$HOME" -- "$NVIM"
 fi
