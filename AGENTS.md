@@ -132,6 +132,7 @@ app's state or puts that state into git.
 | `~/Library/Application Support/halloy/themes` | `~/dotfiles/halloy/themes` | dir |
 | `~/.zshrc` | `~/dotfiles/zsh/.zshrc` | file |
 | `~/.claude/skills/bajortski-design` | `~/dotfiles/claude/skills/bajortski-design` | dir |
+| `~/.local/bin/rex-nvim` | `~/dotfiles/scripts/rex-nvim` | file |
 
 Notes:
 
@@ -181,7 +182,7 @@ for l in ~/.config/nvim ~/.config/neovide ~/.config/rex \
   ~/.config/fastfetch/config.jsonc ~/.config/subtui/config.toml \
   ~/Library/Application\ Support/com.mitchellh.ghostty/config \
   ~/Library/Application\ Support/halloy/{config.toml,themes} \
-  ~/.zshrc ~/.claude/skills/bajortski-design; do
+  ~/.zshrc ~/.claude/skills/bajortski-design ~/.local/bin/rex-nvim; do
   t=$(readlink "$l") && [ -e "$l" ] && echo "ok  $l" || echo "BAD $l -> $t"
 done
 

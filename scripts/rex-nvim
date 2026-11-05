@@ -1,0 +1,30 @@
+#!/bin/sh
+# Focus the Rex pane running nvim, or open nvim in a new Rex session if none is.
+# Bound to alt+n in Tinycast (custom command).
+set -eu
+
+REX="$HOME/Library/Application Support/com.superlogical.rex/RexServer/Versions/Current/Rex Server.app/Contents/MacOS/rex"
+NVIM=/run/current-system/sw/bin/nvim
+
+find_nvim_block() {
+  for s in $("$REX" ls -q --short=false); do
+    for b in $("$REX" block ls -s "$s" -q --short=false); do
+      name=$("$REX" block call -s "$s" -b "$b" process 2>/dev/null |
+        /usr/bin/jq -r '.foreground.name // empty')
+      if [ "$name" = nvim ]; then
+        echo "$s $b"
+        return 0
+      fi
+    done
+  done
+  return 1
+}
+
+open -b com.superlogical.rex
+
+if hit=$(find_nvim_block); then
+  set -- $hit
+  "$REX" focus -s "$1" "$2"
+else
+  "$REX" new nvim --cwd "$HOME" -- "$NVIM"
+fi
