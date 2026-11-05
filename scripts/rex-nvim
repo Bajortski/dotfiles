@@ -1,10 +1,30 @@
 #!/bin/sh
 # Focus the Rex pane running nvim, or open nvim in a new Rex session if none is.
+# Launches Rex first if its app isn't running/connected.
 # Bound to alt+n in Tinycast (custom command).
 set -eu
 
 REX="$HOME/Library/Application Support/com.superlogical.rex/RexServer/Versions/Current/Rex Server.app/Contents/MacOS/rex"
 NVIM=/run/current-system/sw/bin/nvim
+
+app_client() { # newest connected Rex app client, or nothing
+  "$REX" client ls --json 2>/dev/null |
+    /usr/bin/jq -r '[.clients[] | select(.info.kind == "app" and .connection_state == "connected")]
+      | sort_by(.connected_at) | last | .client_id // empty'
+}
+
+# Bring Rex forward, launching it if needed, and wait up to ~10s for it to connect.
+ensure_app() {
+  open -b com.superlogical.rex
+  i=0
+  while [ $i -lt 40 ]; do
+    app=$(app_client)
+    [ -n "$app" ] && return 0
+    sleep 0.25
+    i=$((i + 1))
+  done
+  app=""
+}
 
 find_nvim_block() {
   for s in $("$REX" ls -q --short=false); do
@@ -20,20 +40,17 @@ find_nvim_block() {
   return 1
 }
 
-open -b com.superlogical.rex
-
 focus_block() { # session block
   win=$("$REX" block ls -s "$1" --json --short=false |
     /usr/bin/jq -r --arg b "$2" '.blocks[] | select(.block_id == $b) | .window_id')
-  app=$("$REX" client ls --json |
-    /usr/bin/jq -r '[.clients[] | select(.info.kind == "app" and .connection_state == "connected")]
-      | sort_by(.connected_at) | last | .client_id // empty')
   # Switching the app's tab is best-effort: a reconnecting app shouldn't block focus.
   if [ -n "$app" ]; then
     "$REX" -C "$app" do session.select session_id="$1" window_id="$win" >/dev/null 2>&1 || true
   fi
   "$REX" focus -s "$1" "$2"
 }
+
+ensure_app
 
 if hit=$(find_nvim_block); then
   set -- $hit
