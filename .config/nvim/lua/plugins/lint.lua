@@ -10,7 +10,6 @@ return {
       -- other linters configured.
       linters_by_ft = {
         python   = { "ruff" },
-        markdown = { "markdownlint" },
         css      = { "stylelint" },
         scss     = { "stylelint" },
         sh       = { "shellcheck" },
@@ -25,11 +24,7 @@ return {
       --     end,
       --   }
       ---@type table<string,table>
-      linters = {
-        -- MD041 (first line must be an H1) fires on every Obsidian note that
-        -- opens with frontmatter + body text, e.g. journal Yesterday/Tomorrow links.
-        markdownlint = { prepend_args = { "--disable", "MD041" } },
-      },
+      linters = {},
     },
     config = function(_, opts)
       local lint = require("lint")
@@ -111,7 +106,6 @@ return {
     opts = {
       ensure_installed = {
         "ruff",
-        "markdownlint",
         "stylelint",
         "shellcheck",
         "yamllint",
