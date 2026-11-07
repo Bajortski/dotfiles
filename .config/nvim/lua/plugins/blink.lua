@@ -20,18 +20,8 @@ return {
   opts = {
     keymap = {
       preset = 'default',
-      ["<Tab>"] = {
-        function(cmp)
-          -- When cotyper has a ghost, Tab accepts it one word at a time.
-          local ok, ct = pcall(require, 'cotyper')
-          if ok and ct.is_visible() then
-            ct.accept_word()
-            return true
-          end
-          return cmp.accept()
-        end,
-        "fallback",
-      },
+      -- Tab is blink's alone; cotyper's ghost is accepted with <C-l> (see cotyper.lua).
+      ["<Tab>"] = { "accept", "fallback" },
       -- On a bullet/checkbox/ordered line, Shift-Tab indents the whole line
       -- instead of dropping a tab wherever the cursor happens to sit. Ordered
       -- ahead of "fallback" but behind snippet jumps, which keep priority.
