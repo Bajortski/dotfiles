@@ -20,8 +20,20 @@ return {
   opts = {
     keymap = {
       preset = 'default',
-      -- Tab is blink's alone; cotyper's ghost is accepted with <C-l> (see cotyper.lua).
-      ["<Tab>"] = { "accept", "fallback" },
+      -- <C-l> accepts the completion menu; Tab belongs to cotyper's ghost.
+      ["<C-l>"] = { "accept", "fallback" },
+      -- Wired here rather than via cotyper's own keymaps: blink's buffer-local
+      -- maps would shadow a global <Tab>. Ghost first, then snippet jumps.
+      ["<Tab>"] = {
+        function()
+          local ok, ct = pcall(require, 'cotyper')
+          if ok and ct.is_visible() then
+            return ct.accept_word()
+          end
+        end,
+        "snippet_forward",
+        "fallback",
+      },
       -- On a bullet/checkbox/ordered line, Shift-Tab indents the whole line
       -- instead of dropping a tab wherever the cursor happens to sit. Ordered
       -- ahead of "fallback" but behind snippet jumps, which keep priority.

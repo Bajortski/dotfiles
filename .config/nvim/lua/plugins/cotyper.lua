@@ -1,5 +1,6 @@
 -- cotyper: always-on inline autocomplete (Cotypist-style). Ghost text as you type;
--- <C-l> accepts it word-by-word (Tab stays with blink). Learns from your markdown + gemma4.
+-- Tab (wired in blink.lua) accepts it word-by-word; blink's menu uses <C-l>.
+-- Learns from your markdown + gemma4.
 -- https://github.com/Bajortski/cotyper.nvim
 return {
   "Bajortski/cotyper.nvim",
@@ -12,8 +13,8 @@ return {
     context_lines = 24,
     num_ctx = 4096,
     max_tokens = 32,
-    -- Insert-mode keys mapped by the plugin; each falls through when no ghost is showing.
-    keymaps = { accept_word = "<C-l>" },
+    -- No plugin-owned keys: Tab is wired in blink.lua, and <C-l> is blink's accept.
+    keymaps = false,
     system_prompt = table.concat({
       "You are an inline autocomplete engine. The user message is a document ending at the cursor.",
       "Output only the text to append immediately after the cursor, without repeating or rewriting existing text.",
